@@ -68,7 +68,7 @@
   .botao.principal { background: var(--placa); color: var(--on-placa); box-shadow: var(--sombra-1); }
   .botao.secundario { border: 1.5px solid var(--ink); color: var(--ink); }
   /* Cena da capa: mapa em pixel art desenhado em capa.js */
-  .cena { position: relative; height: max(300px, calc(100vw * 180 / 416)); margin-top: 32px; overflow: hidden; }
+  .cena { position: relative; height: max(230px, calc(100vw * 180 / 416)); margin-top: 32px; overflow: hidden; }
   .cena-quadro { position: absolute; bottom: 0; left: 50%; height: 100%; aspect-ratio: 416 / 180; transform: translateX(-50%); }
   .cena canvas { display: block; width: 100%; height: 100%; image-rendering: pixelated; }
   .cena .rotulo { position: absolute; transform: translate(-50%, -100%); padding: 5px 9px 4px; white-space: nowrap;
@@ -80,6 +80,7 @@
   @keyframes surgir { to { opacity: 1; } }
   @keyframes flutuar { to { translate: 0 -3px; } }
   @media (prefers-reduced-motion: reduce) { .cena .rotulo { animation: none; opacity: 1; } }
+  @media (max-width: 560px) { .cena .rotulo { font-size: 8px; padding: 3px 5px 2px; box-shadow: 0 0 0 1px var(--on-placa), 0 0 0 2px var(--placa); } }
 
   /* Vídeo de resumo */
   .video-resumo { display: block; width: 100%; aspect-ratio: 16 / 9; height: auto; border-radius: 20px; background: var(--asfalto); box-shadow: var(--sombra-2); }

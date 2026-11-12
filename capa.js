@@ -23,7 +23,8 @@
       sol: '#ffd66b', solHalo: '#ffe8a6', nuvem: '#ffffff', nuvemSombra: '#dbe9f2',
       carro: '#2e9e68', carroLuz: '#63c48f', janela: '#cfe7f7', moto: '#f2b705', piloto: '#1f3a5f',
       bike: '#e5484d', ciclista: '#f28c28', capacete: '#f6f2e8', farol: '#fff3c4', lanterna: '#e5484d',
-      flor1: '#e5484d', flor2: '#f2b705', flor3: '#ffffff', luzJanela: null, noite: false
+      flor1: '#e5484d', flor2: '#f2b705', flor3: '#ffffff', luzJanela: null, noite: false,
+      parede: '#efe6d2', telhado: '#b5482f', caminhao: '#e9e4d6', cabine: '#c8322b', pele: ['#e0ac69', '#8d5524', '#f1c27d', '#c68642']
     },
     noite: {
       morro1: '#17392b', morro2: '#1d4535', campo1: '#183b2b', campo2: '#143223', campo3: '#10281c',
@@ -37,7 +38,8 @@
       sol: '#f3efe6', solHalo: '#3a4a5c', nuvem: null, nuvemSombra: null,
       carro: '#46b985', carroLuz: '#7fd6aa', janela: '#9fc3d6', moto: '#f2b705', piloto: '#2c5282',
       bike: '#ff6166', ciclista: '#ff9f43', capacete: '#f6f2e8', farol: '#fff3c4', lanterna: '#ff5a5f',
-      flor1: '#9e3a3d', flor2: '#9c7a10', flor3: '#7d8a83', luzJanela: '#f2c94c', noite: true
+      flor1: '#9e3a3d', flor2: '#9c7a10', flor3: '#7d8a83', luzJanela: '#f2c94c', noite: true,
+      parede: '#8f8a7c', telhado: '#6e2a1c', caminhao: '#b9b4a6', cabine: '#a52a22', pele: ['#b98a55', '#6b4120', '#c9a066', '#9c6a35']
     }
   };
   var P;
@@ -126,7 +128,29 @@
     p.centro = c;
     p.desvio = curva(p.caminho).pts.filter(function (q) { return Math.hypot(q[0] - c[0], q[1] - c[1]) >= ANEL; });
   });
-  function ponto(nome) { return PONTOS.filter(function (p) { return p.nome === nome; })[0]; }
+  // Paradas de beira de estrada: um recuo que sai da principal pela esquerda e volta mais à frente.
+  function indiceX(x) { for (var i = 0; i < PRINCIPAL.pts.length; i++) if (PRINCIPAL.pts[i][0] >= x) return i; return PRINCIPAL.pts.length - 1; }
+  function direita(i) { // vetor para a direita de quem anda na principal
+    var a = PRINCIPAL.pts[Math.max(0, i - 2)], b = PRINCIPAL.pts[Math.min(PRINCIPAL.pts.length - 1, i + 2)];
+    var dx = b[0] - a[0], dy = b[1] - a[1], n = Math.hypot(dx, dy) || 1;
+    return [-dy / n, dx / n];
+  }
+  var RECUOS = [
+    { nome: 'posto', i0: indiceX(80), i1: indiceX(142), fundo: 21, predio: 11 },
+    { nome: 'restaurante', i0: indiceX(314), i1: indiceX(348), fundo: 25, predio: 14 }
+  ];
+  RECUOS.forEach(function (r) {
+    r.pts = [];
+    for (var i = r.i0; i <= r.i1; i++) {
+      var u = (i - r.i0) / (r.i1 - r.i0), o = r.fundo * Math.pow(Math.sin(Math.PI * u), 0.55), n = direita(i), p = PRINCIPAL.pts[i];
+      r.pts.push([p[0] - n[0] * o, p[1] - n[1] * o]);
+    }
+    var nm = direita(Math.floor((r.i0 + r.i1) / 2));
+    r.meio = r.pts[Math.floor(r.pts.length / 2)];
+    r.esq = [-nm[0], -nm[1]];
+    r.base = [Math.round(r.meio[0] + r.esq[0] * r.predio), Math.round(r.meio[1] + r.esq[1] * r.predio)];
+    r.porta = r.nome === 'posto' ? [r.base[0] + 23, r.base[1] + 2] : [r.base[0], r.base[1] + 3]; // onde as pessoas entram
+  });
 
   // ---------------------------------------------------------------- cenário estático
   function topoCampo(x) { return 40 + 3 * Math.sin(x / 37) + 2 * Math.sin(x / 13 + 1); }
@@ -250,9 +274,13 @@
         if (X >= 0 && Y >= 0 && X < W && Y < H && x * x + y * y <= r2) m[Y * W + X] = v || 1;
       }
     }
-    PRINCIPAL.pts.forEach(function (p) { carimbo(borda, p[0], p[1], 9.5); carimbo(asf, p[0], p[1], 7.5); });
+    PRINCIPAL.pts.forEach(function (p) { carimbo(borda, p[0], p[1], 12.5); carimbo(asf, p[0], p[1], 10.5); });
+    RECUOS.forEach(function (r) {
+      r.pts.forEach(function (p) { carimbo(borda, p[0], p[1], 7.5); carimbo(asf, p[0], p[1], 5.5); });
+      carimbo(borda, r.meio[0], r.meio[1], 9.5); carimbo(asf, r.meio[0], r.meio[1], 7.5);
+    });
     PONTOS.forEach(function (pt) {
-      curva(pt.caminho).pts.forEach(function (p) { carimbo(borda, p[0], p[1], 6.5); carimbo(asf, p[0], p[1], 4.5); });
+      curva(pt.caminho).pts.forEach(function (p) { carimbo(borda, p[0], p[1], 7.5); carimbo(asf, p[0], p[1], 5.5); });
       carimbo(borda, pt.centro[0], pt.centro[1], 12.5); carimbo(asf, pt.centro[0], pt.centro[1], 10.5);
     });
     var d = 0;
@@ -283,8 +311,8 @@
   }
 
   function arvores(asf) {
-    var lista = [[14, 104], [24, 120], [96, 128], [110, 114], [132, 142], [144, 118], [236, 118], [250, 132], [300, 152],
-      [404, 112], [408, 127], [98, 62], [212, 68], [300, 52], [344, 172], [404, 174], [196, 178], [82, 178], [14, 70],
+    var lista = [[14, 104], [24, 120], [150, 112], [236, 118], [250, 132], [300, 152],
+      [404, 112], [408, 127], [98, 62], [212, 68], [344, 172], [404, 174], [196, 178], [82, 178], [14, 70],
       [408, 96], [150, 176], [228, 152], [336, 122], [122, 98], [36, 140], [276, 64], [380, 110], [160, 128]];
     var SPRITE = ['..aaa..', '.aLLaa.', 'aLLaaaa', 'aLaaaas', 'aaaaass', '.aasss.', '...t...', '...t...'];
     lista.sort(function (m, n) { return m[1] - n[1]; }).forEach(function (a) {
@@ -312,65 +340,282 @@
     masp(LUGARES.masp[0], LUGARES.masp[1]);
     congresso(LUGARES.brasilia[0], LUGARES.brasilia[1]);
     farolDaBarra(LUGARES.salvador[0], LUGARES.salvador[1]);
-    arvores(estradas());
+    var asf = estradas();
+    posto(RECUOS[0]);
+    restaurante(RECUOS[1]);
+    arvores(asf);
   }
 
-  // ---------------------------------------------------------------- veículos
+  function posto(r) { // cobertura listrada, duas bombas, loja e placa
+    var bx = r.base[0], by = r.base[1];
+    ret(bx - 13, by + 2, 27, 1, P.sombra);
+    ret(bx - 11, by - 3, 1, 6, P.pedraLuz); ret(bx + 11, by - 3, 1, 6, P.pedraLuz);
+    ret(bx - 6, by - 1, 2, 4, P.lanterna); ret(bx - 6, by - 1, 2, 1, P.branco);
+    ret(bx + 4, by - 1, 2, 4, P.lanterna); ret(bx + 4, by - 1, 2, 1, P.branco);
+    ret(bx - 14, by - 8, 29, 4, P.branco);
+    for (var x = bx - 14; x < bx + 15; x++) px(x, by - 5, (x & 2) ? P.lanterna : P.branco);
+    ret(bx - 14, by - 9, 29, 1, P.lanterna);
+    if (P.noite) for (x = bx - 12; x < bx + 13; x += 4) px(x, by - 4, P.farol);
+    ret(bx + 17, by - 9, 13, 10, P.parede); ret(bx + 16, by - 11, 15, 2, P.placa);
+    ret(bx + 22, by - 4, 3, 5, P.tronco); ret(bx + 18, by - 7, 3, 2, P.luzJanela || P.vidro); ret(bx + 26, by - 7, 3, 2, P.luzJanela || P.vidro);
+    ret(bx - 19, by - 13, 1, 13, P.preto); ret(bx - 23, by - 20, 9, 7, P.placa); ret(bx - 21, by - 18, 5, 3, P.faixa);
+  }
+
+  function restaurante(r) { // casa de telhado vermelho, toldo listrado e guarda-sóis
+    var bx = r.base[0], by = r.base[1];
+    ret(bx - 12, by + 2, 25, 1, P.sombra);
+    ret(bx - 11, by - 8, 22, 10, P.parede);
+    for (var i = 0; i < 4; i++) ret(bx - 13 + i, by - 12 + i, 26 - 2 * i, 1, P.telhado);
+    ret(bx - 13, by - 9, 26, 1, P.telhado);
+    for (var x = bx - 11; x < bx + 11; x++) px(x, by - 7, (x & 1) ? P.lanterna : P.branco);
+    ret(bx - 1, by - 4, 3, 6, P.tronco);
+    ret(bx - 8, by - 4, 4, 3, P.luzJanela || P.vidro); ret(bx + 5, by - 4, 4, 3, P.luzJanela || P.vidro);
+    ret(bx - 5, by - 15, 10, 3, P.faixa); px(bx - 2, by - 14, P.preto); px(bx + 1, by - 14, P.preto);
+    [[bx + 16, by - 3], [bx + 16, by + 5]].forEach(function (u) {
+      disco(u[0], u[1], 2.4, function (dx, dy) { return dx + dy < 0 ? P.faixa : P.lanterna; });
+      px(u[0], u[1] + 3, P.tronco);
+    });
+  }
+
+  // ---------------------------------------------------------------- veículos e tráfego
+  // Cada veículo anda pela própria rota (principal + desvios e recuos onde para). Na principal há duas
+  // faixas no mesmo sentido: quem vê alguém mais lento na frente ultrapassa pela esquerda se ela estiver
+  // livre; se não estiver, reduz e segue atrás. Ninguém passa por cima de ninguém.
   var DESENHOS = {
     carro: ['.BBBBBBBB.', 'RBJLLLBJBF', 'BBJLLLBJBB', 'RBJLLLBJBF', '.BBBBBBBB.'],
     moto: ['...P.K.', 'RMMCMMF', '...P.K.'],
-    bike: ['...O.K', 'VVVCVV', '...O.K']
+    bike: ['...O.K', 'VVVCVV', '...O.K'],
+    caminhao: ['.TTTTTTTTT..XX.', 'RTsTTsTTsTKXXJF', 'RTTTTTTTTTKXXJ.', 'RTsTTsTTsTKXXJF', '.TTTTTTTTT..XX.']
   };
-  function sprite(desenho, sombra) {
-    var c = document.createElement('canvas'), w = desenho[0].length, h = desenho.length;
+  var FAIXA_L = 5; // do centro da principal ao meio de cada faixa
+  var COMPRIMENTO = { carro: 10, moto: 7, bike: 6, caminhao: 15 };
+  var FROTA = [
+    { tipo: 'carro', cor: null, paradas: ['rio', 'restaurante', 'salvador'], vel: 36, ultrapassa: true },
+    { tipo: 'carro', cor: '#d64541', paradas: ['posto', 'masp'], vel: 33, ultrapassa: true },
+    { tipo: 'carro', cor: '#3b6fb6', paradas: ['restaurante', 'brasilia'], vel: 38, ultrapassa: true },
+    { tipo: 'moto', cor: null, paradas: ['floripa', 'brasilia'], vel: 46, ultrapassa: true },
+    { tipo: 'moto', cor: '#e5484d', paradas: ['posto'], vel: 50, ultrapassa: true },
+    { tipo: 'bike', cor: null, paradas: ['masp'], vel: 14, ultrapassa: false },
+    { tipo: 'caminhao', cor: null, paradas: ['posto'], vel: 22, ultrapassa: true },
+    { tipo: 'caminhao', cor: '#2c6e8f', paradas: [], vel: 20, ultrapassa: true }
+  ];
+  var ALVOS = { floripa: [58, 90], rio: [180, 88], masp: [244, 76], brasilia: [368, 150], salvador: [392, 74] };
+  var CAMISAS = ['#e5484d', '#3b6fb6', '#f2b705', '#ffffff', '#46b985', '#f28c28'];
+
+  function montarRota(v) {
+    var pts = [], meta = [], paradas = [], M = PRINCIPAL.pts, i = 0;
+    function add(p, idx) { pts.push(p); meta.push(idx); }
+    while (i < M.length) {
+      var recuo = RECUOS.filter(function (r) { return r.i0 === i && v.paradas.indexOf(r.nome) >= 0; })[0];
+      if (recuo) {
+        var meio = Math.floor(recuo.pts.length / 2);
+        recuo.pts.forEach(function (p, k) { add(p, -1); if (k === meio) paradas.push({ k: pts.length - 1, nome: recuo.nome }); });
+        i = recuo.i1 + 1;
+        continue;
+      }
+      add(M[i], i);
+      PONTOS.forEach(function (pt) {
+        if (v.paradas.indexOf(pt.nome) < 0 || PRINCIPAL.marcas[pt.ancora] !== i) return;
+        var ida = pt.desvio, c = pt.centro, ult = ida[ida.length - 1], alvo = ALVOS[pt.nome];
+        var a0 = Math.atan2(ult[1] - c[1], ult[0] - c[0]), melhor = -1, dm = 1e9;
+        ida.forEach(function (p) { add(p, -1); });
+        for (var k = 1; k <= 96; k++) {
+          var a = a0 - k / 96 * Math.PI * 2, q = [c[0] + Math.cos(a) * ANEL, c[1] + Math.sin(a) * ANEL];
+          add(q, -2);
+          var dd = Math.hypot(q[0] - alvo[0], q[1] - alvo[1]);
+          if (dd < dm) { dm = dd; melhor = pts.length - 1; }
+        }
+        paradas.push({ k: melhor, nome: pt.nome });
+        ida.slice().reverse().forEach(function (p) { add(p, -1); });
+      });
+      i++;
+    }
+    var acc = [0];
+    for (var j = 1; j < pts.length; j++) acc.push(acc[j - 1] + Math.hypot(pts[j][0] - pts[j - 1][0], pts[j][1] - pts[j - 1][1]));
+    v.pts = pts; v.meta = meta; v.acc = acc; v.total = acc[acc.length - 1];
+    v.paradasD = paradas.map(function (p) { return { d: acc[p.k], nome: p.nome }; }).sort(function (a, b) { return a.d - b.d; });
+  }
+
+  function noPonto(v, d) {
+    d = ((d % v.total) + v.total) % v.total;
+    var a = v.acc, lo = 0, hi = a.length - 1;
+    while (hi - lo > 1) { var mid = (lo + hi) >> 1; if (a[mid] <= d) lo = mid; else hi = mid; }
+    var t = (d - a[lo]) / ((a[hi] - a[lo]) || 1), p = v.pts[lo], q = v.pts[hi];
+    return { x: p[0] + (q[0] - p[0]) * t, y: p[1] + (q[1] - p[1]) * t, lo: lo };
+  }
+
+  function estado(v) { // posição no mundo (com a faixa), direção e se está na principal
+    var a = noPonto(v, v.d - 2.5), b = noPonto(v, v.d + 2.5), p = noPonto(v, v.d);
+    var dx = b.x - a.x, dy = b.y - a.y, n = Math.hypot(dx, dy) || 1;
+    dx /= n; dy /= n;
+    var off = v.faixa * FAIXA_L;
+    return { x: p.x - dy * off, y: p.y + dx * off, dx: dx, dy: dy, rx: -dy, ry: dx, principal: v.meta[p.lo] >= 0, laco: v.meta[p.lo] === -2 };
+  }
+
+  var pessoas = [];
+  function descer(v, nome, e) {
+    var alvo = ALVOS[nome] || (nome === 'posto' ? RECUOS[0].porta : RECUOS[1].porta);
+    var n = v.tipo === 'carro' ? (nome === 'posto' ? 1 : 2 + (Math.random() < 0.5 ? 1 : 0)) : 1;
+    v.pessoas = [];
+    for (var k = 0; k < n; k++) {
+      var p = {
+        x0: e.x + (k - 1) * 1.5, y0: e.y + 2, ax: alvo[0] + (k - 1) * 2, ay: alvo[1] + (k % 2), t: -0.35 * k - 0.3,
+        vel: 7 + k, espera: nome === 'posto' ? 1.2 : 2.2, camisa: CAMISAS[Math.floor(Math.random() * CAMISAS.length)],
+        pele: P.pele[Math.floor(Math.random() * P.pele.length)], fim: false
+      };
+      p.ida = Math.hypot(p.ax - p.x0, p.ay - p.y0) / p.vel;
+      v.pessoas.push(p);
+      pessoas.push(p);
+    }
+    v.parado = nome === 'posto' ? 1.4 : 0.6; // tempo parado depois que todo mundo voltou
+  }
+
+  function andarPessoas(dt) {
+    pessoas.forEach(function (p) {
+      p.t += dt;
+      if (p.t > p.ida * 2 + p.espera) p.fim = true;
+    });
+    pessoas = pessoas.filter(function (p) { return !p.fim; });
+  }
+
+  function iniciarTrafego() {
+    pessoas = [];
+    FROTA.forEach(function (v, i) {
+      montarRota(v);
+      // cada um nasce num trecho diferente da principal, na sua faixa, sem sobrepor ninguém
+      var alvoMain = Math.floor(PRINCIPAL.pts.length * (i + 0.5) / FROTA.length), k = v.meta.indexOf(alvoMain);
+      v.d = v.acc[k >= 0 ? k : 0];
+      v.v = v.vel; v.faixa = 1; v.alvoFaixa = 1; v.parado = 0; v.pessoas = null; v.passando = null;
+      v.pi = 0;
+      while (v.pi < v.paradasD.length && v.paradasD[v.pi].d <= v.d) v.pi++;
+    });
+  }
+
+  function passo(dt) {
+    var est = FROTA.map(estado);
+    FROTA.forEach(function (v, i) {
+      var e = est[i];
+      if (v.pessoas && v.pessoas.some(function (p) { return !p.fim; })) return; // esperando o pessoal voltar
+      if (v.parado > 0) { v.parado -= dt; v.v = 0; return; }
+      var lider = null, gap = 1e9, folga = 0, livreEsq = true, livreDir = true, passou = !v.passando;
+      est.forEach(function (o, j) {
+        if (j === i) return;
+        var rx = o.x - e.x, ry = o.y - e.y, p = rx * e.dx + ry * e.dy, q = rx * e.rx + ry * e.ry;
+        var cos = o.dx * e.dx + o.dy * e.dy;
+        var minimo = (COMPRIMENTO[v.tipo] + COMPRIMENTO[FROTA[j].tipo]) / 2 + 2; // para-choque a para-choque
+        // Na principal: mesma faixa e mesmo sentido. Fora dela (desvios, rotatórias, recuos), qualquer um
+        // logo à frente que não venha na contramão, inclusive quem está de lado parado no anel.
+        var naFaixa = e.principal && cos > 0.3 && p < minimo + 14 && Math.abs(q) < 4.5; // inclui quem acabou de sair da pista
+        var perto = !e.principal && !o.principal && cos > -0.3 && Math.hypot(rx, ry) < minimo + 12;
+        if (perto && (-rx * o.dx - ry * o.dy) > 0 && i < j && FROTA[j].v > 0.5) perto = false; // os dois se veem na frente: só um espera
+        if (p > 0 && (naFaixa || perto) && p < gap) { gap = p; lider = FROTA[j]; folga = minimo; }
+        if (p > -14 && p < 26 && q < -5 && q > -15) livreEsq = false;
+        if (p > -12 && p < 14 && q > 5 && q < 15) livreDir = false;
+        if (FROTA[j] === v.passando && p < -12) passou = true;
+      });
+      var alvo = e.principal ? v.vel : v.vel * 0.6; // devagar em desvio, rotatória e recuo
+      if (e.principal) {
+        if (v.alvoFaixa !== 1 && v.alvoFaixa !== -1) v.alvoFaixa = 1;
+        if (v.alvoFaixa === -1 && passou && livreDir) { v.alvoFaixa = 1; v.passando = null; }
+        if (v.ultrapassa && lider && gap < folga + 12 && lider.v < v.vel * 0.9 && v.alvoFaixa === 1 && livreEsq) {
+          v.alvoFaixa = -1; v.passando = lider;
+        }
+      } else {
+        v.alvoFaixa = e.laco ? 0 : 0.55; v.passando = null;
+      }
+      if (!e.principal && v.meta[noPonto(v, v.d + 9).lo] >= 0) { // vai entrar na principal: dá a preferência
+        est.forEach(function (o, j) {
+          if (j === i || !o.principal || FROTA[j].v < 5) return;
+          var rx = e.x - o.x, ry = e.y - o.y, pe = rx * o.dx + ry * o.dy; // onde eu estou visto por quem vem na pista
+          if (pe > -6 && pe < 22 && Math.hypot(rx, ry) < 24) alvo = 0;
+        });
+      }
+      if (lider) {
+        if (gap < folga) alvo = 0;
+        else if (gap < folga + 10) alvo = Math.min(alvo, lider.v + (gap - folga) * 1.5);
+      }
+      v.v += Math.max(-180 * dt, Math.min(40 * dt, alvo - v.v));
+      v.d += Math.max(0, v.v) * dt;
+      v.faixa += Math.max(-2.2 * dt, Math.min(2.2 * dt, v.alvoFaixa - v.faixa));
+      if (v.pi < v.paradasD.length && v.d >= v.paradasD[v.pi].d) {
+        descer(v, v.paradasD[v.pi].nome, e);
+        v.v = 0;
+        v.pi++;
+      }
+      if (v.d >= v.total) { v.d -= v.total; v.pi = 0; }
+    });
+    andarPessoas(dt);
+  }
+
+  function clarear(h, f) {
+    var n = parseInt(h.slice(1), 16), r = n >> 16, g2 = (n >> 8) & 255, b = n & 255;
+    return 'rgb(' + Math.round(r + (255 - r) * f) + ',' + Math.round(g2 + (255 - g2) * f) + ',' + Math.round(b + (255 - b) * f) + ')';
+  }
+  function sprite(v, sombra) {
+    var desenho = DESENHOS[v.tipo], c = document.createElement('canvas'), w = desenho[0].length, h = desenho.length;
     c.width = w + 2; c.height = h + 2;
     var gg = c.getContext('2d');
-    var cores = { B: P.carro, L: P.carroLuz, J: P.janela, R: P.lanterna, F: P.farol, M: P.moto, P: P.piloto, C: P.capacete, K: P.preto, O: P.ciclista, V: P.bike };
+    var corCarro = v.tipo === 'carro' && v.cor ? v.cor : P.carro;
+    var cores = {
+      B: corCarro, L: v.tipo === 'carro' && v.cor ? clarear(v.cor, 0.3) : P.carroLuz, J: P.janela, R: P.lanterna, F: P.farol,
+      M: v.tipo === 'moto' && v.cor ? v.cor : P.moto, P: P.piloto, C: P.capacete, K: P.preto, O: P.ciclista, V: P.bike,
+      T: P.caminhao, s: clarear(P.caminhao.charAt(0) === '#' ? P.caminhao : '#b9b4a6', -0.0), X: v.tipo === 'caminhao' && v.cor ? v.cor : P.cabine
+    };
+    cores.s = P.noite ? '#8e897c' : '#cfc8b6';
     desenho.forEach(function (l, y) {
       for (var x = 0; x < w; x++) if (l[x] !== '.') { gg.fillStyle = sombra ? 'rgba(0,0,0,.28)' : cores[l[x]]; gg.fillRect(x + 1, y + 1, 1, 1); }
     });
     return c;
   }
-  var VEICULOS = [ // nome, desvios, velocidade (px/s), avanço inicial (s)
-    { nome: 'bike', paradas: ['masp'], vel: 15, ini: 30 },
-    { nome: 'carro', paradas: ['rio', 'salvador'], vel: 36, ini: 0 },
-    { nome: 'moto', paradas: ['floripa', 'brasilia'], vel: 46, ini: 9 }
-  ];
-  VEICULOS.forEach(function (v) {
-    var pts = [], m = PRINCIPAL.marcas;
-    for (var i = 0; i < PRINCIPAL.pts.length; i++) {
-      pts.push(PRINCIPAL.pts[i]);
-      PONTOS.forEach(function (pt) {
-        if (v.paradas.indexOf(pt.nome) < 0 || m[pt.ancora] !== i) return;
-        var ida = pt.desvio, c = pt.centro, ult = ida[ida.length - 1];
-        var a0 = Math.atan2(ult[1] - c[1], ult[0] - c[0]);
-        pts = pts.concat(ida);
-        for (var k = 1; k <= 96; k++) { var a = a0 - k / 96 * Math.PI * 2; pts.push([c[0] + Math.cos(a) * ANEL, c[1] + Math.sin(a) * ANEL]); }
-        pts = pts.concat(ida.slice().reverse());
-      });
-    }
-    var acc = [0];
-    for (i = 1; i < pts.length; i++) acc.push(acc[i - 1] + Math.hypot(pts[i][0] - pts[i - 1][0], pts[i][1] - pts[i - 1][1]));
-    v.pts = pts; v.acc = acc; v.total = acc[acc.length - 1];
-  });
-  function posicao(v, d) {
-    d = ((d % v.total) + v.total) % v.total;
-    var a = v.acc, lo = 0, hi = a.length - 1;
-    while (hi - lo > 1) { var mid = (lo + hi) >> 1; if (a[mid] <= d) lo = mid; else hi = mid; }
-    var t = (d - a[lo]) / ((a[hi] - a[lo]) || 1), p = v.pts[lo], q = v.pts[hi];
-    return [p[0] + (q[0] - p[0]) * t, p[1] + (q[1] - p[1]) * t];
+  function montarSprites() {
+    FROTA.forEach(function (v) { v.sp = { cor: sprite(v), sombra: sprite(v, true) }; });
   }
 
-  var sprites = {};
-  function montarSprites() {
-    Object.keys(DESENHOS).forEach(function (n) { sprites[n] = { cor: sprite(DESENHOS[n]), sombra: sprite(DESENHOS[n], true) }; });
+  function desenharTrafego() {
+    var est = FROTA.map(estado);
+    FROTA.map(function (v, i) { return [v, est[i]]; }).sort(function (a, b) { return a[1].y - b[1].y; }).forEach(function (par) {
+      var v = par[0], e = par[1], sp = v.sp, X = Math.round(e.x), Y = Math.round(e.y);
+      var ang = Math.round(Math.atan2(e.dy, e.dx) / (Math.PI / 16)) * (Math.PI / 16);
+      if (P.noite) { // faróis acesos, em pontilhado
+        var cx = Math.cos(ang), sy = Math.sin(ang), frente = (sp.cor.width - 2) / 2;
+        ctx.globalAlpha = 0.5;
+        for (var kk = 1; kk < 12; kk++) for (var ww = -Math.floor(kk / 3) - 1; ww <= Math.floor(kk / 3) + 1; ww++) {
+          var qx = Math.round(X + cx * (frente + kk) - sy * ww), qy = Math.round(Y + sy * (frente + kk) + cx * ww);
+          if (((qx + qy) & 1) === 0) px(qx, qy, P.farol);
+        }
+        ctx.globalAlpha = 1;
+      }
+      [['sombra', 1], ['cor', 0]].forEach(function (camada) {
+        ctx.save();
+        ctx.translate(X + camada[1], Y + camada[1]);
+        ctx.rotate(ang);
+        ctx.drawImage(sp[camada[0]], -Math.floor(sp.cor.width / 2), -Math.floor(sp.cor.height / 2));
+        ctx.restore();
+      });
+    });
+    pessoas.forEach(function (p) { // gente andando até o lugar e voltando
+      if (p.t < 0) return;
+      var u;
+      if (p.t < p.ida) u = p.t / p.ida;
+      else if (p.t < p.ida + p.espera) u = 1;
+      else u = 1 - (p.t - p.ida - p.espera) / p.ida;
+      var x = Math.round(p.x0 + (p.ax - p.x0) * u), y = Math.round(p.y0 + (p.ay - p.y0) * u);
+      var passoPerna = (u > 0 && u < 1) ? Math.floor(p.t * 6) & 1 : 0;
+      ret(x, y - 4, 2, 1, p.pele);                 // cabeça
+      ret(x, y - 3, 2, 2, p.camisa);               // tronco
+      px(x - passoPerna + 0, y - 1, P.preto); px(x + 1 + passoPerna, y - 1, P.preto); // pernas, alternando
+      px(x - 1, y, 'rgba(0,0,0,.25)'); px(x + 2, y, 'rgba(0,0,0,.25)'); // sombrinha no chão
+    });
   }
 
   // ---------------------------------------------------------------- quadro a quadro
   var NUVEM = ['....nnn......', '..nnnnnnn.nn.', '.nnnnnnnnnnnn', 'ssssssssssss.'];
   var ESTRELAS = (function () { var r = sorteio(11), l = []; for (var i = 0; i < 46; i++) l.push([Math.floor(r() * W), Math.floor(r() * 30), r()]); return l; })();
 
+  var ultimoT = null;
   function quadro(t) {
+    if (ultimoT !== null) passo(Math.min(0.05, Math.max(0, t - ultimoT)));
+    ultimoT = t;
     g = ctx;
     ctx.imageSmoothingEnabled = false;
     ctx.clearRect(0, 0, W, H);
@@ -403,27 +648,7 @@
       px(lx, ly, P.farol); px(lx + 1, ly, P.farol);
     } else if (Math.floor(t * 1.5) % 2) { px(lx, ly, P.faixa); px(lx + 1, ly, P.faixa); }
 
-    VEICULOS.forEach(function (v) {
-      var d = (t + v.ini) * v.vel, p = posicao(v, d), a = posicao(v, d - 3), b = posicao(v, d + 3);
-      var ang = Math.round(Math.atan2(b[1] - a[1], b[0] - a[0]) / (Math.PI / 16)) * (Math.PI / 16);
-      var sp = sprites[v.nome], X = Math.round(p[0]), Y = Math.round(p[1]);
-      if (P.noite) { // faróis acesos, em pontilhado
-        var cx = Math.cos(ang), sy = Math.sin(ang), frente = (sp.cor.width - 2) / 2;
-        ctx.globalAlpha = 0.55;
-        for (var kk = 1; kk < 13; kk++) for (var ww = -Math.floor(kk / 3) - 1; ww <= Math.floor(kk / 3) + 1; ww++) {
-          var qx = Math.round(X + cx * (frente + kk) - sy * ww), qy = Math.round(Y + sy * (frente + kk) + cx * ww);
-          if (((qx + qy) & 1) === 0) px(qx, qy, P.farol);
-        }
-        ctx.globalAlpha = 1;
-      }
-      [['sombra', 1], ['cor', 0]].forEach(function (camada) {
-        ctx.save();
-        ctx.translate(X + camada[1], Y + camada[1]);
-        ctx.rotate(ang);
-        ctx.drawImage(sp[camada[0]], -Math.floor(sp.cor.width / 2), -Math.floor(sp.cor.height / 2));
-        ctx.restore();
-      });
-    });
+    desenharTrafego();
   }
 
   // ---------------------------------------------------------------- ciclo de vida
@@ -434,8 +659,10 @@
   function preparar() {
     P = escuro.matches ? PALETAS.noite : PALETAS.dia;
     montarEstatico();
+    if (!FROTA[0].pts) iniciarTrafego();
     montarSprites();
-    quadro(menos.matches ? 14 : (performance.now() - t0) / 1000);
+    if (menos.matches) { for (var k = 0; k < 420; k++) passo(1 / 30); ultimoT = null; }
+    quadro((performance.now() - t0) / 1000);
   }
   function laco(agora) {
     if (!visivel || menos.matches) { rodando = false; return; }
