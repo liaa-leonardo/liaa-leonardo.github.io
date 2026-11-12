@@ -1,0 +1,385 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Desvio · Leonardo Oliveira</title>
+<meta name="description" content="Desvio: app de celular que monta viagens por terra com paradas escolhidas por swipe. Projeto da disciplina Laboratório de Inteligência Artificial Aplicada.">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Barlow:wght@400;600&family=Bricolage+Grotesque:opsz,wght@12..96,700&display=swap" rel="stylesheet">
+<style>
+  /* Tokens do design system do Desvio (packages/design-tokens/tokens.json) */
+  :root {
+    --surface-100: #F6F2E9; --surface-200: #FFFFFF; --surface-300: #ECE5D6;
+    --ink: #1B1F1D; --ink-muted: #565D59; --line: #D6CDBA;
+    --placa: #0B6B45; --on-placa: #FFFFFF;
+    --faixa: #F2B705; --on-faixa: #1B1F1D;
+    --asfalto: #23292B; --on-asfalto: #F3EFE6;
+    --ceu-base: #FBF1D3; --ceu-faixa: #FFD95C; --ceu-placa: #C2E7D1; --ceu-azul: #C9E4F6; --ceu-sol: #FFCDA8;
+    --foco: #1B1F1D;
+    --sombra-1: 0 1px 2px rgba(35,41,43,.06), 0 4px 12px -4px rgba(35,41,43,.12);
+    --sombra-2: 0 2px 4px rgba(35,41,43,.05), 0 22px 44px -18px rgba(35,41,43,.30);
+    --display: "Bricolage Grotesque", system-ui, sans-serif;
+    --placa-fonte: "Barlow Condensed", "Arial Narrow", sans-serif;
+    --sans: "Barlow", system-ui, sans-serif;
+    color-scheme: light dark;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --surface-100: #121614; --surface-200: #1B201E; --surface-300: #272D2A;
+      --ink: #F1EDE4; --ink-muted: #AAB1AC; --line: #3A413D;
+      --placa: #46B985; --on-placa: #0A1F16;
+      --asfalto: #2C3336;
+      --ceu-base: #151B18; --ceu-faixa: #3E340E; --ceu-placa: #123F2B; --ceu-azul: #13314A; --ceu-sol: #4A2A14;
+      --foco: #F2B705;
+      --sombra-1: 0 1px 2px rgba(0,0,0,.3), 0 4px 12px -4px rgba(0,0,0,.5);
+      --sombra-2: 0 2px 4px rgba(0,0,0,.3), 0 22px 44px -18px rgba(0,0,0,.7);
+    }
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: var(--surface-100); color: var(--ink); font: 400 17px/1.6 var(--sans); }
+  a { color: var(--placa); font-weight: 600; text-underline-offset: 3px; }
+  a:focus-visible, .botao:focus-visible { outline: 2px solid var(--foco); outline-offset: 3px; border-radius: 6px; }
+  .largura { max-width: 1040px; margin: 0 auto; padding: 0 20px; }
+
+  /* Navegação */
+  nav { position: sticky; top: 0; z-index: 10; background: color-mix(in srgb, var(--surface-100) 88%, transparent);
+        backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
+  nav .largura { display: flex; align-items: center; gap: 20px; height: 56px; }
+  nav .marca { font: 700 22px/1 var(--display); color: var(--ink); text-decoration: none; letter-spacing: -.02em; }
+  nav ul { display: flex; gap: 18px; list-style: none; margin: 0 0 0 auto; padding: 0; overflow-x: auto; }
+  nav ul a { color: var(--ink-muted); font: 600 15px/1 var(--placa-fonte); text-transform: uppercase; letter-spacing: .06em; text-decoration: none; white-space: nowrap; }
+  nav ul a:hover { color: var(--ink); }
+
+  /* Céu de fim de tarde + estrada */
+  .ceu { background: linear-gradient(180deg, var(--ceu-azul) 0%, var(--ceu-base) 45%, var(--ceu-faixa) 78%, var(--ceu-sol) 100%); }
+  header.ceu { padding: 72px 0 0; overflow: hidden; }
+  .chapeu { font: 600 15px/1.2 var(--placa-fonte); letter-spacing: .14em; text-transform: uppercase; color: var(--ink-muted); margin: 0 0 12px; }
+  h1 { font: 700 clamp(56px, 12vw, 120px)/.95 var(--display); letter-spacing: -.035em; margin: 0; }
+  .lema { font: 400 clamp(20px, 3vw, 26px)/1.35 var(--sans); max-width: 640px; margin: 18px 0 28px; }
+  .botoes { display: flex; flex-wrap: wrap; gap: 12px; }
+  .botao { display: inline-flex; align-items: center; min-height: 52px; padding: 0 24px; border-radius: 999px; font: 600 16px/1 var(--sans); text-decoration: none; }
+  .botao.principal { background: var(--placa); color: var(--on-placa); box-shadow: var(--sombra-1); }
+  .botao.secundario { border: 1.5px solid var(--ink); color: var(--ink); }
+  .estrada { position: relative; height: 96px; margin-top: 64px; background: var(--asfalto); }
+  .estrada::after { content: ""; position: absolute; left: 0; right: 0; top: 50%; height: 6px; transform: translateY(-50%);
+                    background: repeating-linear-gradient(90deg, var(--faixa) 0 56px, transparent 56px 104px); }
+  .carro { position: absolute; top: -34px; left: 8%; animation: rodar 18s linear infinite; }
+  @keyframes rodar { from { left: -60px; } to { left: 100%; } }
+  @media (prefers-reduced-motion: reduce) { .carro { animation: none; } }
+
+  /* Seções */
+  section { padding: 80px 0; }
+  section + section { border-top: 1px solid var(--line); }
+  h2 { font: 700 clamp(30px, 5vw, 40px)/1.1 var(--display); letter-spacing: -.03em; margin: 0 0 20px; }
+  h3 { font: 650 22px/1.25 var(--display); margin: 0 0 8px; }
+  .placa-titulo { display: inline-flex; align-items: center; gap: 10px; background: var(--placa); color: var(--on-placa);
+                  font: 700 15px/1 var(--placa-fonte); letter-spacing: .1em; text-transform: uppercase; padding: 8px 14px;
+                  border-radius: 8px; border: 2px solid var(--on-placa); box-shadow: 0 0 0 2px var(--placa); margin-bottom: 18px; }
+  .texto { max-width: 680px; }
+  .texto p { margin: 0 0 16px; }
+  .grade { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); margin-top: 28px; }
+  .cartao { background: var(--surface-200); border: 1px solid var(--line); border-radius: 20px; padding: 24px; box-shadow: var(--sombra-1); }
+  .cartao p { margin: 0; color: var(--ink-muted); }
+  .numero { font: 700 44px/1 var(--placa-fonte); color: var(--placa); }
+  .numero small { font-size: 20px; }
+
+  /* Fluxo do app */
+  .fluxo { list-style: none; padding: 0; margin: 28px 0 0; display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); counter-reset: passo; }
+  .fluxo li { counter-increment: passo; background: var(--surface-300); border-radius: 16px; padding: 18px 18px 18px 64px; position: relative; }
+  .fluxo li::before { content: counter(passo); position: absolute; left: 16px; top: 16px; width: 34px; height: 34px; border-radius: 50%;
+                      display: grid; place-items: center; background: var(--faixa); color: var(--on-faixa); font: 700 18px/1 var(--placa-fonte); }
+  .fluxo strong { display: block; font-weight: 600; }
+  .decisao { display: inline-block; padding: 2px 10px; border-radius: 999px; font: 700 14px/1.5 var(--placa-fonte); letter-spacing: .06em; text-transform: uppercase; }
+  .bora { background: var(--placa); color: var(--on-placa); }
+  .passo { background: var(--asfalto); color: var(--on-asfalto); }
+
+  .stack { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; padding: 0; list-style: none; }
+  .stack li { background: var(--surface-300); border-radius: 999px; padding: 4px 14px; font: 600 14px/1.6 var(--sans); }
+
+  /* Evolução: estrada com marcos de km */
+  .linha-do-tempo { position: relative; list-style: none; margin: 36px 0 0; padding: 0 0 0 64px; }
+  .linha-do-tempo::before { content: ""; position: absolute; left: 18px; top: 0; bottom: 0; width: 28px; background: var(--asfalto); border-radius: 14px; }
+  .linha-do-tempo::after { content: ""; position: absolute; left: 30px; top: 12px; bottom: 12px; width: 4px;
+                           background: repeating-linear-gradient(180deg, var(--faixa) 0 22px, transparent 22px 40px); }
+  .entrega { position: relative; margin: 0 0 22px; }
+  .marco { position: absolute; left: -64px; top: 18px; z-index: 1; width: 64px; display: flex; justify-content: center; }
+  .marco span { background: var(--placa); color: var(--on-placa); font: 700 15px/1 var(--placa-fonte); padding: 6px 7px; border-radius: 6px;
+                border: 2px solid var(--on-placa); box-shadow: 0 0 0 2px var(--placa); }
+  .entrega.futura .marco span { background: var(--surface-300); color: var(--ink-muted); border-color: var(--surface-100); box-shadow: 0 0 0 2px var(--line); }
+  .entrega .cartao { margin-left: 8px; }
+  .cabeca { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 14px; margin-bottom: 8px; }
+  .status { font: 700 13px/1 var(--placa-fonte); letter-spacing: .1em; text-transform: uppercase; padding: 5px 10px; border-radius: 999px; }
+  .status.feita { background: var(--placa); color: var(--on-placa); }
+  .status.andamento { background: var(--faixa); color: var(--on-faixa); }
+  .status.planejada { background: var(--surface-300); color: var(--ink-muted); }
+  .entrega ul { margin: 10px 0 0; padding-left: 20px; color: var(--ink-muted); }
+  .entrega ul li { margin: 4px 0; }
+  .links { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 12px; font-size: 15px; }
+
+  /* Diário semanal */
+  .semanas { display: grid; gap: 16px; margin-top: 28px; }
+  .semana .data { font: 700 15px/1 var(--placa-fonte); letter-spacing: .08em; text-transform: uppercase; color: var(--ink-muted); }
+  .semana dl { margin: 12px 0 0; display: grid; grid-template-columns: max-content 1fr; gap: 6px 14px; }
+  .semana dt { font-weight: 600; }
+  .semana dd { margin: 0; color: var(--ink-muted); }
+  @media (max-width: 560px) { .semana dl { grid-template-columns: 1fr; } .semana dd { margin-bottom: 8px; } }
+
+  footer { background: var(--asfalto); color: var(--on-asfalto); padding: 40px 0; }
+  footer a { color: var(--faixa); }
+  footer p { margin: 4px 0; color: color-mix(in srgb, var(--on-asfalto) 75%, transparent); }
+
+  @media (max-width: 560px) {
+    nav ul { display: none; }
+    section { padding: 56px 0; }
+    .linha-do-tempo { padding-left: 56px; }
+    .marco { left: -56px; width: 56px; }
+  }
+</style>
+</head>
+<body>
+
+<nav aria-label="Seções">
+  <div class="largura">
+    <a class="marca" href="#topo">Desvio</a>
+    <ul>
+      <li><a href="#contexto">Contexto</a></li>
+      <li><a href="#problema">Problema</a></li>
+      <li><a href="#solucao">Solução</a></li>
+      <li><a href="#evolucao">Evolução</a></li>
+      <li><a href="#semanas">Semanas</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="ceu" id="topo">
+  <div class="largura">
+    <p class="chapeu">Laboratório de Inteligência Artificial Aplicada · Leonardo Oliveira</p>
+    <h1>Desvio</h1>
+    <p class="lema">Um app de celular que monta viagens por terra, de carro, moto ou bicicleta, com paradas que você escolhe deslizando o dedo.</p>
+    <div class="botoes">
+      <a class="botao principal" href="#evolucao">Ver a evolução</a>
+      <a class="botao secundario" href="https://github.com/Lleooli/desvio">Repositório</a>
+    </div>
+  </div>
+  <div class="estrada" aria-hidden="true">
+    <svg class="carro" width="56" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="color: var(--ink)">
+      <path d="M5 16v3M19 16v3M3 16h18v-4l-2-5H5l-2 5zM3 12h18M7 14h1M16 14h1"/>
+    </svg>
+  </div>
+</header>
+
+<main>
+  <section id="contexto">
+    <div class="largura">
+      <span class="placa-titulo">Contexto</span>
+      <h2>Viagem longa no Brasil é feita de estrada</h2>
+      <div class="texto">
+        <p>Muita gente cruza estados de carro ou moto: Alegrete, no Rio Grande do Sul, até Vitória da Conquista, na Bahia, são 2.731 km, uns 35 horas de estrada. Cresce também a cicloviagem, em que cada trecho de 30 a 80 km é um dia de pedal.</p>
+        <p>Nessas viagens, as paradas fazem a experiência: onde comer bem, qual mirante vale o desvio, onde abastecer com segurança e onde dormir. Hoje essa escolha é feita às pressas, no celular, com o carro já em movimento.</p>
+      </div>
+      <div class="grade">
+        <div class="cartao"><div class="numero">2.731 <small>km</small></div><p>de Alegrete, RS, a Vitória da Conquista, BA, a viagem que usamos de exemplo</p></div>
+        <div class="cartao"><div class="numero">3</div><p>jeitos de viajar por terra: carro, moto e bicicleta, cada um com sua rota e ritmo</p></div>
+        <div class="cartao"><div class="numero">5</div><p>tipos de parada: turismo, restaurante, posto, natureza e hospedagem</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="problema">
+    <div class="largura">
+      <span class="placa-titulo">Problema</span>
+      <h2>Planejar paradas exige abas demais</h2>
+      <div class="texto">
+        <p>Quem viaja por terra planeja as paradas em várias abas: Google Maps para achar lugares, Instagram para ver se valem a pena, blogs para dicas. É lento, cansativo e não leva em conta onde a pessoa vai estar em cada horário.</p>
+        <p>O resultado é parar no primeiro posto da estrada e perder o restaurante bom a 3 km dali. Numa cicloviagem o erro custa mais caro: cada desvio são horas de pedal.</p>
+      </div>
+      <div class="grade">
+        <div class="cartao"><h3>Informação espalhada</h3><p>Nota, fotos, horário e Instagram ficam em lugares diferentes.</p></div>
+        <div class="cartao"><h3>Sem noção de caminho</h3><p>Os apps de mapa mostram lugares perto de você agora, não perto de onde você vai estar daqui a 300 km.</p></div>
+        <div class="cartao"><h3>Ordem e horário</h3><p>Almoço entre 11h e 14h, mirante no fim da tarde, pernoite: ninguém monta isso de cabeça.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="solucao">
+    <div class="largura">
+      <span class="placa-titulo">Solução</span>
+      <h2>Sugestões no caminho, decisão com um gesto, roteiro pela IA</h2>
+      <div class="texto">
+        <p>O Desvio junta três coisas que hoje estão separadas: a rota com paradas sugeridas a cada intervalo que você escolhe, cards com foto, nota, km na rota e Instagram, e um roteiro final que a IA ordena pelo km, pelo horário e pelo seu gosto.</p>
+      </div>
+      <ol class="fluxo">
+        <li><strong>Você conta a viagem</strong>Origem, destino, veículo e de quantos em quantos km quer parar.</li>
+        <li><strong>O app busca as paradas</strong>Cidades no caminho e os lugares de cada uma, do OpenStreetMap, do Google Maps e da Wikipedia.</li>
+        <li><strong>Você desliza</strong><span class="decisao bora">Bora</span> para guardar, <span class="decisao passo">Passo</span> para pular, favorito para cima.</li>
+        <li><strong>A IA ordena o roteiro</strong>Ajusta ao horário e explica cada parada numa linha. Abre no Google Maps ou no Waze.</li>
+      </ol>
+      <div class="grade">
+        <div class="cartao"><h3>IA com plano B</h3><p>Triagem do gosto, ranqueamento e roteiro no Groq com modelos gpt-oss. Se a IA falha ou passa de 10 s, o app usa a ordem estatística, sem erro.</p></div>
+        <div class="cartao"><h3>Coleta que não trava</h3><p>A busca roda num worker com fila de jobs e mostra o progresso por etapa. Os lugares ficam em cache por 30 dias.</p></div>
+        <div class="cartao"><h3>Gosto que aprende</h3><p>Cada swipe vira dado: lugares avaliados não voltam e os novos chegam na ordem do seu gosto.</p></div>
+      </div>
+      <ul class="stack" aria-label="Tecnologias">
+        <li>Expo · React Native</li><li>Python · FastAPI</li><li>Groq · gpt-oss</li><li>OpenStreetMap · OSRM · Nominatim</li><li>Supabase</li><li>GitHub Actions</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="evolucao">
+    <div class="largura">
+      <span class="placa-titulo">Evolução</span>
+      <h2>A estrada do semestre</h2>
+      <div class="texto">
+        <p>Cada entrega da disciplina fecha com a tag <code>atividade-NN</code> no repositório e um release com o que mudou. Eu cuido do coletor e da IA; Emilly, das telas e do design system; Guilherme, de infraestrutura, dados e qualidade.</p>
+      </div>
+
+      <ol class="linha-do-tempo">
+        <li class="entrega">
+          <div class="marco"><span>A05</span></div>
+          <div class="cartao">
+            <div class="cabeca"><h3>Fundação</h3><span class="status feita">Entregue</span></div>
+            <p>PRD com 19 histórias de usuário, design system com tokens claros e escuros, telas de referência, app Expo e coletor FastAPI com testes.</p>
+            <div class="links"><a href="https://github.com/Lleooli/desvio/tree/atividade-05">Tag atividade-05</a><a href="https://github.com/Lleooli/desvio/releases/tag/atividade-05">Release</a></div>
+          </div>
+        </li>
+        <li class="entrega">
+          <div class="marco"><span>A06</span></div>
+          <div class="cartao">
+            <div class="cabeca"><h3>IA no Groq com plano B</h3><span class="status feita">Entregue</span></div>
+            <ul>
+              <li>Triagem, ranqueamento e roteiro com IA, com schema estrito e limitador por modelo</li>
+              <li>Fila de jobs e worker: a API responde na hora e o app consulta o progresso</li>
+              <li>Verificação da stack: o Llama saiu do plano gratuito e adotamos gpt-oss</li>
+            </ul>
+            <div class="links"><a href="https://github.com/Lleooli/desvio/tree/atividade-06">Tag atividade-06</a><a href="https://github.com/Lleooli/desvio/releases/tag/atividade-06">Release</a></div>
+          </div>
+        </li>
+        <li class="entrega">
+          <div class="marco"><span>A07</span></div>
+          <div class="cartao">
+            <div class="cabeca"><h3>Base: Supabase, autenticação e design system</h3><span class="status andamento">Em andamento</span></div>
+            <ul>
+              <li>Componentes base do design system no app (entregue)</li>
+              <li>Limitador da IA com lock e prazo total de 10 s; validação dos cards e erros sem dados internos</li>
+              <li>Autocompletar de cidade com a lista do IBGE, sem gastar a cota do Nominatim</li>
+              <li>Mudança de escopo: só viagens por terra, com rota própria para bicicleta</li>
+            </ul>
+            <div class="links"><span>Tag <code>atividade-07</code> ao fechar a entrega</span></div>
+          </div>
+        </li>
+        <li class="entrega futura">
+          <div class="marco"><span>A08</span></div>
+          <div class="cartao">
+            <div class="cabeca"><h3>API completa e app conectado</h3><span class="status planejada">Planejada</span></div>
+            <p>Viagens salvas por pessoa, progresso da busca por etapa, cache de 30 dias e o app falando com a API.</p>
+          </div>
+        </li>
+        <li class="entrega futura">
+          <div class="marco"><span>A09</span></div>
+          <div class="cartao">
+            <div class="cabeca"><h3>Telas do fluxo da viagem</h3><span class="status planejada">Planejada</span></div>
+            <p>Triagem, minhas viagens, nova viagem e paradas. No backend, a Places API oficial e o controle da cota do Groq.</p>
+          </div>
+        </li>
+        <li class="entrega futura">
+          <div class="marco"><span>A10</span></div>
+          <div class="cartao">
+            <div class="cabeca"><h3>Fechamento da Fase 1</h3><span class="status planejada">Planejada</span></div>
+            <p>Swipe com desfazer, roteiro por km e abertura no mapa: uma viagem real, do login ao roteiro.</p>
+          </div>
+        </li>
+        <li class="entrega futura">
+          <div class="marco"><span>A11</span></div>
+          <div class="cartao">
+            <div class="cabeca"><h3>Fase 2: IA no roteiro, detalhe e perfil</h3><span class="status planejada">Planejada</span></div>
+            <p>Roteiro ajustado ao horário com explicação, detalhe do lugar, perfil de gosto e cards antes do Google chegar.</p>
+          </div>
+        </li>
+        <li class="entrega futura">
+          <div class="marco"><span>A12</span></div>
+          <div class="cartao">
+            <div class="cabeca"><h3>Fim da Fase 2 e beta fechado</h3><span class="status planejada">Planejada</span></div>
+            <p>Filtros e edição do roteiro, exportar e apagar dados (LGPD) e testes com usuários.</p>
+          </div>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section id="semanas">
+    <div class="largura">
+      <span class="placa-titulo">Semana a semana</span>
+      <h2>Diário a partir de 9 de novembro</h2>
+      <div class="texto">
+        <p>Uma entrada por semana. A semana atual vem dos commits e PRs; as próximas são o plano combinado com o grupo, uma entrega da disciplina por semana, e viram registro conforme acontecem.</p>
+      </div>
+      <div class="semanas">
+        <div class="cartao semana">
+          <div class="cabeca"><span class="data">09/11 a 15/11</span><h3>A07 · Base do app e do coletor</h3><span class="status andamento">Esta semana</span></div>
+          <dl>
+            <dt>10/11 · Emilly</dt><dd>Componentes base do design system no app (Button, Chip, TextField, Segmented, Rating, Toast, BottomNav, Icon) e o catálogo <code>/dev/componentes</code> nos dois temas. Entregas da disciplina no PRD. PRs #48 e #49.</dd>
+            <dt>11/11 · Leonardo</dt><dd>Limitador da IA com lock por modelo e prazo total de 10 s; validação dos cards sem vazar erro interno. PRs #50 e #51.</dd>
+            <dt>12/11 · Leonardo</dt><dd>Mudança de escopo para viagens só por terra, com rota de bicicleta (#52). Autocompletar de cidade pela lista do IBGE (#53), progresso por etapa (#54), cards do OpenStreetMap antes do Google (#55), cache de 30 dias (#56) e uso diário do Groq (#57). Revisão e merge de #48 e #49.</dd>
+            <dt>Falta na semana</dt><dd>Supabase, schema e autenticação (#1, #2, #3, Guilherme); componentes de estrada e swipe (#12, #20, Emilly); revisão e merge de #50 a #57.</dd>
+          </dl>
+        </div>
+        <div class="cartao semana">
+          <div class="cabeca"><span class="data">16/11 a 22/11</span><h3>A08 · API completa e app conectado</h3><span class="status planejada">Plano</span></div>
+          <dl>
+            <dt>Emilly</dt><dd>Boas-vindas e login (#14); cliente da API e estado da viagem ativa (#13).</dd>
+            <dt>Leonardo</dt><dd>Guardar e listar viagens da pessoa (#4), depois da autenticação.</dd>
+            <dt>Guilherme</dt><dd>Perfil de gosto no ranqueamento (#8), favorito e desfazer (#9), deploy numa VPS (#10).</dd>
+          </dl>
+        </div>
+        <div class="cartao semana">
+          <div class="cabeca"><span class="data">23/11 a 29/11</span><h3>A09 · Telas do fluxo da viagem</h3><span class="status planejada">Plano</span></div>
+          <dl>
+            <dt>Emilly</dt><dd>Triagem (#15), Minhas viagens (#16), Nova viagem (#17), Paradas (#19).</dd>
+            <dt>Leonardo</dt><dd>Places API oficial no lugar do raspador (#36); decisão sobre o plano do Groq (#41).</dd>
+            <dt>Guilherme</dt><dd>Builds EAS do beta (#38) e observabilidade (#42).</dd>
+          </dl>
+        </div>
+        <div class="cartao semana">
+          <div class="cabeca"><span class="data">30/11 a 06/12</span><h3>A10 · Fechamento da Fase 1</h3><span class="status planejada">Plano</span></div>
+          <dl>
+            <dt>Emilly</dt><dd>Carregando (#18), swipe com desfazer (#21), roteiro por km (#22), abrir no Maps ou Waze (#23).</dd>
+            <dt>Leonardo</dt><dd>Servidores próprios de OSRM, Nominatim e Overpass (#37).</dd>
+            <dt>Guilherme</dt><dd>Métricas (#43) e a viagem real de ponta a ponta (#24).</dd>
+          </dl>
+        </div>
+        <div class="cartao semana">
+          <div class="cabeca"><span class="data">07/12 a 13/12</span><h3>A11 · IA no roteiro, detalhe e perfil</h3><span class="status planejada">Plano</span></div>
+          <dl>
+            <dt>Emilly</dt><dd>Roteiro pela IA com explicação (#27), perfil (#31), detalhe do lugar (#28).</dd>
+            <dt>Leonardo</dt><dd>Cards do OpenStreetMap na tela enquanto o Google chega (#33).</dd>
+            <dt>Guilherme</dt><dd>Aviso push quando a busca termina (#39).</dd>
+          </dl>
+        </div>
+        <div class="cartao semana">
+          <div class="cabeca"><span class="data">14/12 a 20/12</span><h3>A12 · Fim da Fase 2 e beta fechado</h3><span class="status planejada">Plano</span></div>
+          <dl>
+            <dt>Emilly</dt><dd>Filtro por categoria (#29), editar roteiro (#30), refazer triagem (#32).</dd>
+            <dt>Leonardo</dt><dd>Exportar e apagar dados, LGPD (#40).</dd>
+            <dt>Guilherme</dt><dd>Beta fechado com usuários (#44).</dd>
+          </dl>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="largura">
+    <p><strong>Desvio</strong> · projeto da disciplina Laboratório de Inteligência Artificial Aplicada</p>
+    <p>Leonardo Oliveira (<a href="https://github.com/Lleooli">@Lleooli</a>) · com Emilly (<a href="https://github.com/lilydias24">@lilydias24</a>) e Guilherme Vicente (<a href="https://github.com/GuiiVicent">@GuiiVicent</a>)</p>
+    <p><a href="https://github.com/Lleooli/desvio">github.com/Lleooli/desvio</a></p>
+  </div>
+</footer>
+
+</body>
+</html>
