@@ -81,6 +81,10 @@
   @keyframes flutuar { to { translate: 0 -3px; } }
   @media (prefers-reduced-motion: reduce) { .cena .rotulo { animation: none; opacity: 1; } }
 
+  /* Vídeo de resumo */
+  .video-resumo { display: block; width: 100%; aspect-ratio: 16 / 9; height: auto; border-radius: 20px; background: var(--asfalto); box-shadow: var(--sombra-2); }
+  .video-links { margin: 14px 0 0; color: var(--ink-muted); }
+
   /* Seções */
   section { padding: 80px 0; }
   section + section { border-top: 1px solid var(--line); }
@@ -189,6 +193,18 @@
 </header>
 
 <main>
+  <section id="video">
+    <div class="largura">
+      <span class="placa-titulo">Resumo em vídeo</span>
+      <h2>O Desvio do começo ao fim</h2>
+      <video class="video-resumo" controls preload="metadata" playsinline poster="videos/resumo-animado.jpg">
+        <source src="videos/resumo-animado.mp4" type="video/mp4">
+        Seu navegador não toca vídeo. <a href="videos/resumo-animado.mp4">Baixe o vídeo</a>.
+      </video>
+      <p class="video-links">Também: <a href="videos/retrospectiva.mp4">Retrospectiva do que já foi feito (1 min 31 s)</a></p>
+    </div>
+  </section>
+
   <section id="contexto">
     <div class="largura">
       <span class="placa-titulo">Contexto</span>
