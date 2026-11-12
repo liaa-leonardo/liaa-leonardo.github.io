@@ -8,7 +8,7 @@
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Barlow:wght@400;600&family=Bricolage+Grotesque:opsz,wght@12..96,700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Barlow:wght@400;600&family=Bricolage+Grotesque:opsz,wght@12..96,700&family=Silkscreen&display=swap" rel="stylesheet">
 <style>
   /* Tokens do design system do Desvio (packages/design-tokens/tokens.json) */
   :root {
@@ -19,6 +19,7 @@
     --asfalto: #23292B; --on-asfalto: #F3EFE6;
     --ceu-base: #FBF1D3; --ceu-faixa: #FFD95C; --ceu-placa: #C2E7D1; --ceu-azul: #C9E4F6; --ceu-sol: #FFCDA8;
     --foco: #1B1F1D;
+    --silhueta: #34493F; --carro: #2E9E68; --facho-max: .18;
     --sombra-1: 0 1px 2px rgba(35,41,43,.06), 0 4px 12px -4px rgba(35,41,43,.12);
     --sombra-2: 0 2px 4px rgba(35,41,43,.05), 0 22px 44px -18px rgba(35,41,43,.30);
     --display: "Bricolage Grotesque", system-ui, sans-serif;
@@ -34,6 +35,7 @@
       --asfalto: #2C3336;
       --ceu-base: #151B18; --ceu-faixa: #3E340E; --ceu-placa: #123F2B; --ceu-azul: #13314A; --ceu-sol: #4A2A14;
       --foco: #F2B705;
+      --silhueta: #0A0F0D; --carro: #46B985; --facho-max: .45;
       --sombra-1: 0 1px 2px rgba(0,0,0,.3), 0 4px 12px -4px rgba(0,0,0,.5);
       --sombra-2: 0 2px 4px rgba(0,0,0,.3), 0 22px 44px -18px rgba(0,0,0,.7);
     }
@@ -65,12 +67,19 @@
   .botao { display: inline-flex; align-items: center; min-height: 52px; padding: 0 24px; border-radius: 999px; font: 600 16px/1 var(--sans); text-decoration: none; }
   .botao.principal { background: var(--placa); color: var(--on-placa); box-shadow: var(--sombra-1); }
   .botao.secundario { border: 1.5px solid var(--ink); color: var(--ink); }
-  .estrada { position: relative; height: 96px; margin-top: 64px; background: var(--asfalto); }
-  .estrada::after { content: ""; position: absolute; left: 0; right: 0; top: 50%; height: 6px; transform: translateY(-50%);
-                    background: repeating-linear-gradient(90deg, var(--faixa) 0 56px, transparent 56px 104px); }
-  .carro { position: absolute; top: -34px; left: 8%; animation: rodar 18s linear infinite; }
-  @keyframes rodar { from { left: -60px; } to { left: 100%; } }
-  @media (prefers-reduced-motion: reduce) { .carro { animation: none; } }
+  /* Cena da capa: mapa em pixel art desenhado em capa.js */
+  .cena { position: relative; height: max(300px, calc(100vw * 180 / 416)); margin-top: 32px; overflow: hidden; }
+  .cena-quadro { position: absolute; bottom: 0; left: 50%; height: 100%; aspect-ratio: 416 / 180; transform: translateX(-50%); }
+  .cena canvas { display: block; width: 100%; height: 100%; image-rendering: pixelated; }
+  .cena .rotulo { position: absolute; transform: translate(-50%, -100%); padding: 5px 9px 4px; white-space: nowrap;
+                  background: var(--placa); color: var(--on-placa); font: 700 clamp(10px, 1.2vw, 16px)/1 "Silkscreen", monospace;
+                  text-transform: uppercase; box-shadow: 0 0 0 2px var(--on-placa), 0 0 0 4px var(--placa), 4px 4px 0 3px rgba(0,0,0,.18);
+                  opacity: 0; animation: surgir .4s steps(4) forwards, flutuar 1.6s steps(2) infinite alternate; }
+  .cena .rotulo::after { content: ""; position: absolute; left: 50%; top: calc(100% + 4px); width: 6px; height: 4px; margin-left: -3px;
+                         background: var(--placa); clip-path: polygon(0 0, 100% 0, 66% 50%, 66% 100%, 33% 100%, 33% 50%); }
+  @keyframes surgir { to { opacity: 1; } }
+  @keyframes flutuar { to { translate: 0 -3px; } }
+  @media (prefers-reduced-motion: reduce) { .cena .rotulo { animation: none; opacity: 1; } }
 
   /* Seções */
   section { padding: 80px 0; }
@@ -166,11 +175,17 @@
       <a class="botao secundario" href="https://github.com/Lleooli/desvio">Repositório</a>
     </div>
   </div>
-  <div class="estrada" aria-hidden="true">
-    <svg class="carro" width="56" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="color: var(--ink)">
-      <path d="M5 16v3M19 16v3M3 16h18v-4l-2-5H5l-2 5zM3 12h18M7 14h1M16 14h1"/>
-    </svg>
+  <div class="cena" role="img" aria-label="Mapa em pixel art: uma estrada principal com desvios até pontos turísticos do Brasil (Ponte Hercílio Luz, em Florianópolis; Pão de Açúcar e Cristo Redentor, no Rio de Janeiro; MASP, em São Paulo; Congresso Nacional, em Brasília; e Farol da Barra, em Salvador). Um carro, uma moto e uma bicicleta saem da estrada, contornam a rotatória de um ponto e voltam.">
+    <div class="cena-quadro">
+      <canvas width="416" height="180"></canvas>
+        <span class="rotulo" style="left: 14.42%; top: 27.78%; animation-delay: 0.00s, 0.60s">Florianópolis</span>
+        <span class="rotulo" style="left: 43.03%; top: 20.56%; animation-delay: 0.15s, 0.80s">Rio de Janeiro</span>
+        <span class="rotulo" style="left: 58.65%; top: 23.33%; animation-delay: 0.30s, 1.00s">São Paulo</span>
+        <span class="rotulo" style="left: 92.31%; top: 64.44%; animation-delay: 0.45s, 1.20s">Brasília</span>
+        <span class="rotulo" style="left: 94.95%; top: 18.89%; animation-delay: 0.60s, 1.40s">Salvador</span>
+    </div>
   </div>
+  <script src="capa.js" defer></script>
 </header>
 
 <main>
