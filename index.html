@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Desvio · Leonardo Oliveira</title>
+<title>Desvio · Leonardo, Emilly e Guilherme</title>
 <meta name="description" content="Desvio: app de celular que monta viagens por terra com paradas escolhidas por swipe. Projeto da disciplina Laboratório de Inteligência Artificial Aplicada.">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -98,6 +98,7 @@
   .grade { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); margin-top: 28px; }
   .cartao { background: var(--surface-200); border: 1px solid var(--line); border-radius: 20px; padding: 24px; box-shadow: var(--sombra-1); }
   .cartao p { margin: 0; color: var(--ink-muted); }
+  #equipe .cartao p + p { margin-top: 10px; }
   .numero { font: 700 44px/1 var(--placa-fonte); color: var(--placa); }
   .numero small { font-size: 20px; }
 
@@ -163,6 +164,7 @@
       <li><a href="#contexto">Contexto</a></li>
       <li><a href="#problema">Problema</a></li>
       <li><a href="#solucao">Solução</a></li>
+      <li><a href="#equipe">Equipe</a></li>
       <li><a href="#evolucao">Evolução</a></li>
       <li><a href="#semanas">Semanas</a></li>
     </ul>
@@ -171,7 +173,7 @@
 
 <header class="ceu" id="topo">
   <div class="largura">
-    <p class="chapeu">Laboratório de Inteligência Artificial Aplicada · Leonardo Oliveira</p>
+    <p class="chapeu">Laboratório de Inteligência Artificial Aplicada · Leonardo Oliveira, Emilly Dias e Guilherme Vicente</p>
     <h1>Desvio</h1>
     <p class="lema">Um app de celular que monta viagens por terra, de carro, moto ou bicicleta, com paradas que você escolhe deslizando o dedo.</p>
     <div class="botoes">
@@ -258,6 +260,18 @@
       <ul class="stack" aria-label="Tecnologias">
         <li>Expo · React Native</li><li>Python · FastAPI</li><li>Groq · gpt-oss</li><li>OpenStreetMap · OSRM · Nominatim</li><li>Supabase</li><li>GitHub Actions</li>
       </ul>
+    </div>
+  </section>
+
+  <section id="equipe">
+    <div class="largura">
+      <span class="placa-titulo">Equipe</span>
+      <h2>Três pessoas, uma estrada</h2>
+      <div class="grade">
+        <div class="cartao"><h3>Leonardo Oliveira</h3><p>Coletor de lugares e IA: rota, paradas, cards, Groq com plano B.</p><p><a href="https://github.com/Lleooli">@Lleooli</a></p></div>
+        <div class="cartao"><h3>Emilly Dias</h3><p>Telas do app, design system e o cliente da API no app.</p><p><a href="https://github.com/lilydias24">@lilydias24</a></p></div>
+        <div class="cartao"><h3>Guilherme Vicente</h3><p>Infraestrutura, dados e qualidade: Supabase, deploy, métricas e beta.</p><p><a href="https://github.com/GuiiVicent">@GuiiVicent</a></p></div>
+      </div>
     </div>
   </section>
 
@@ -407,7 +421,7 @@
 <footer>
   <div class="largura">
     <p><strong>Desvio</strong> · projeto da disciplina Laboratório de Inteligência Artificial Aplicada</p>
-    <p>Leonardo Oliveira (<a href="https://github.com/Lleooli">@Lleooli</a>) · com Emilly (<a href="https://github.com/lilydias24">@lilydias24</a>) e Guilherme Vicente (<a href="https://github.com/GuiiVicent">@GuiiVicent</a>)</p>
+    <p>Leonardo Oliveira (<a href="https://github.com/Lleooli">@Lleooli</a>) · Emilly Dias (<a href="https://github.com/lilydias24">@lilydias24</a>) · Guilherme Vicente (<a href="https://github.com/GuiiVicent">@GuiiVicent</a>)</p>
     <p><a href="https://github.com/Lleooli/desvio">github.com/Lleooli/desvio</a></p>
   </div>
 </footer>
