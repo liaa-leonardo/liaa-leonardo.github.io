@@ -1,0 +1,96 @@
+WEBVTT
+Language: pt-BR
+
+1
+00:00:00.800 --> 00:00:03.262
+Esta é a estrada do Desvio até aqui.
+
+2
+00:00:03.312 --> 00:00:07.575
+Um app para viagens por terra,
+que sugere lugares no caminho.
+
+3
+00:00:07.975 --> 00:00:12.888
+Na atividade 5, a fundação:
+o PRD com 19 histórias de usuário,
+
+4
+00:00:12.938 --> 00:00:17.075
+o design system em tema claro e
+escuro, e as telas de referência.
+
+5
+00:00:17.125 --> 00:00:23.025
+O app nasceu em Expo, e o coletor,
+em FastAPI, já com 8 testes.
+
+6
+00:00:23.425 --> 00:00:29.975
+Na atividade 6, entrou a IA: triagem,
+ranqueamento e roteiro, no Groq.
+
+7
+00:00:30.025 --> 00:00:34.987
+Com um plano B: se a IA falha,
+o app segue sem ela.
+
+8
+00:00:35.037 --> 00:00:37.462
+Vieram a fila de jobs e o worker,
+
+9
+00:00:37.512 --> 00:00:41.450
+e os testes subiram para 51,
+todos sem internet.
+
+10
+00:00:41.850 --> 00:00:45.275
+Agora, na atividade 7, a estrada mudou.
+
+11
+00:00:45.325 --> 00:00:49.775
+Saiu o modo avião. O Desvio
+é só para viagens por terra:
+
+12
+00:00:49.825 --> 00:00:53.850
+de carro, de moto ou de
+bicicleta, com rota própria.
+
+13
+00:00:54.450 --> 00:00:58.612
+Chegaram os componentes base do app,
+o autocompletar de cidade,
+
+14
+00:00:58.662 --> 00:01:01.462
+o progresso da busca e o cache de lugares.
+
+15
+00:01:01.512 --> 00:01:06.812
+Tudo em PRs abertos,
+com 67 a 69 testes nos ramos.
+
+16
+00:01:07.212 --> 00:01:10.100
+No protótipo, você vê
+as cidades no caminho,
+
+17
+00:01:10.150 --> 00:01:13.387
+desliza os lugares e
+recebe o roteiro por dia.
+
+18
+00:01:17.287 --> 00:01:19.375
+Pela frente: o app conectado,
+
+19
+00:01:19.425 --> 00:01:24.287
+uma viagem real de ponta a ponta e,
+no fim, o beta com usuários.
+
+20
+00:01:24.687 --> 00:01:27.687
+A estrada continua no site da disciplina.

@@ -1,0 +1,176 @@
+WEBVTT
+Language: pt-BR
+
+1
+00:00:01.000 --> 00:00:07.238
+Alegrete, Rio Grande do Sul. Destino:
+Vitória da Conquista, na Bahia.
+
+2
+00:00:07.288 --> 00:00:13.388
+São 2.731 quilômetros.
+Umas 35 horas de estrada.
+
+3
+00:00:14.288 --> 00:00:18.762
+Onde parar? Hoje, a resposta
+está espalhada em vários apps:
+
+4
+00:00:18.812 --> 00:00:22.975
+o mapa, as avaliações,
+o Instagram, as anotações.
+
+5
+00:00:23.025 --> 00:00:24.675
+E eles não conversam.
+
+6
+00:00:24.725 --> 00:00:30.650
+O lugar bom fica fora da rota.
+E as listas são as mesmas para todo mundo.
+
+7
+00:00:31.050 --> 00:00:34.687
+O Desvio junta tudo isso
+no caminho da sua viagem.
+
+8
+00:00:35.087 --> 00:00:37.612
+Você diz de onde sai, para onde vai,
+
+9
+00:00:37.662 --> 00:00:41.050
+o veículo e de quantos em
+quantos quilômetros quer parar.
+
+10
+00:00:41.100 --> 00:00:45.187
+O app busca cidades e lugares
+no caminho: no OpenStreetMap,
+
+11
+00:00:45.237 --> 00:00:48.275
+no Google Maps,
+na Wikipedia e no Instagram.
+
+12
+00:00:48.325 --> 00:00:52.587
+Aí você desliza. Bora: o lugar entra.
+
+13
+00:00:52.850 --> 00:00:56.662
+Passo: fica de fora. Ou Favorito.
+
+14
+00:00:58.962 --> 00:01:04.650
+No fim, a IA ordena o roteiro,
+que abre no Google Maps ou no Waze.
+
+15
+00:01:05.050 --> 00:01:08.325
+A IA entra em três momentos.
+
+16
+00:01:08.587 --> 00:01:13.225
+Na triagem, faz até cinco perguntas
+e resume seu gosto numa frase.
+
+17
+00:01:13.275 --> 00:01:18.187
+Depois, ranqueia os cards.
+E ajusta o roteiro ao horário.
+
+18
+00:01:18.237 --> 00:01:22.087
+Tudo no Groq, com os
+modelos abertos gpt-oss.
+
+19
+00:01:22.487 --> 00:01:28.400
+E se a IA falhar, demorar mais de
+10 segundos ou bater no limite gratuito?
+
+20
+00:01:28.450 --> 00:01:33.538
+O app pega um desvio: usa a ordem
+estatística e geométrica, sem erro.
+
+21
+00:01:34.838 --> 00:01:38.538
+E a chave da IA fica só no servidor.
+
+22
+00:01:38.938 --> 00:01:42.213
+Por dentro, o app fala
+com uma API em Python.
+
+23
+00:01:42.475 --> 00:01:46.413
+A API chama a IA e põe a busca numa fila.
+
+24
+00:01:46.463 --> 00:01:51.650
+Um worker faz a coleta: a rota no
+OSRM, os endereços no Nominatim,
+
+25
+00:01:51.700 --> 00:01:57.050
+os lugares no OpenStreetMap, no Google
+Maps e na Wikipedia, e o Instagram.
+
+26
+00:01:58.450 --> 00:02:03.100
+Um achado: ranquear uma viagem
+custa uns 27 mil tokens.
+
+27
+00:02:03.363 --> 00:02:06.188
+O limite gratuito é de 8 mil por minuto.
+
+28
+00:02:06.238 --> 00:02:09.975
+Por isso, boa parte das
+paradas cai no plano B.
+
+29
+00:02:10.238 --> 00:02:13.788
+A decisão sobre o plano
+pago está na issue #41.
+
+30
+00:02:14.188 --> 00:02:21.000
+Até aqui: a fundação, a IA com plano B e,
+agora, só viagens por terra.
+
+31
+00:02:21.050 --> 00:02:23.100
+Pela frente: o app conectado,
+
+32
+00:02:23.150 --> 00:02:26.963
+uma viagem real de ponta a
+ponta e o beta com usuários.
+
+33
+00:02:27.363 --> 00:02:30.425
+As metas do PRD, ainda não medidas:
+
+34
+00:02:30.475 --> 00:02:34.063
+10 pontos a mais de aceite da
+primeira para a segunda viagem.
+
+35
+00:02:34.113 --> 00:02:40.925
+De 35% a 50% de Bora e Favorito.
+E 70% das triagens até o fim.
+
+36
+00:02:41.325 --> 00:02:44.663
+Desvio. Feito por Leonardo Paulino,
+
+37
+00:02:44.713 --> 00:02:47.950
+Emilly Dias e Guilherme Vicente,
+na UNIPAMPA.

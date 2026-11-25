@@ -85,6 +85,8 @@
   /* Vídeo de resumo */
   .video-resumo { display: block; width: 100%; aspect-ratio: 16 / 9; height: auto; border-radius: 20px; background: var(--asfalto); box-shadow: var(--sombra-2); }
   .video-links { margin: 14px 0 0; color: var(--ink-muted); }
+  .video-subtitulo { margin: 40px 0 14px; }
+  .video-resumo::cue { font: 500 1em/1.35 var(--sans); background: rgba(27, 31, 29, .82); color: #FFFFFF; }
 
   /* Seções */
   section { padding: 80px 0; }
@@ -144,6 +146,62 @@
   .semana dd { margin: 0; color: var(--ink-muted); }
   @media (max-width: 560px) { .semana dl { grid-template-columns: 1fr; } .semana dd { margin-bottom: 8px; } }
 
+  /* Exemplo real */
+  .exemplo { display: grid; gap: 16px; grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); margin-top: 28px; }
+  @media (max-width: 760px) { .exemplo { grid-template-columns: 1fr; } }
+  .pares { margin: 12px 0 0; display: grid; grid-template-columns: max-content 1fr; gap: 6px 12px; }
+  .pares dt { font-weight: 600; }
+  .pares dd { margin: 0; color: var(--ink-muted); }
+  .paradas-ex, .roteiro-ex { list-style: none; margin: 12px 0 0; padding: 0; display: grid; gap: 10px; }
+  .paradas-ex li, .roteiro-ex li { display: grid; grid-template-columns: 84px 1fr; gap: 2px 12px; }
+  .paradas-ex li > span:last-child, .roteiro-ex li > span { grid-column: 2; color: var(--ink-muted); font-size: 15px; }
+  .paradas-ex li.mais { display: block; color: var(--ink-muted); font-style: italic; }
+  .km-tag, .roteiro-ex time { grid-row: span 2; align-self: start; justify-self: start; font: 700 14px/1 var(--placa-fonte); letter-spacing: .06em;
+                              padding: 5px 7px; border-radius: 6px; background: var(--asfalto); color: var(--on-asfalto); }
+  .roteiro-ex time { background: var(--faixa); color: var(--on-faixa); }
+  h3.sub { margin-top: 24px; }
+  .cartao.problema { border-left: 6px solid var(--faixa); }
+  .telas-app { list-style: none; padding: 0; margin: 28px 0 0; display: grid; gap: 16px; grid-template-columns: repeat(5, minmax(0, 1fr)); }
+  @media (max-width: 900px) { .telas-app { grid-template-columns: repeat(5, 62%); overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 8px; } .telas-app li { scroll-snap-align: start; } }
+  .telas-app li { display: flex; flex-direction: column; gap: 8px; }
+  .telas-app img { width: 100%; height: auto; border-radius: 20px; border: 6px solid var(--asfalto); background: var(--asfalto); }
+  .telas-app span { font: 700 14px/1.2 var(--placa-fonte); letter-spacing: .08em; text-transform: uppercase; color: var(--ink-muted); }
+  .fonte { margin: 16px 0 0; color: var(--ink-muted); font-size: 15px; }
+
+  /* Resultados: cores validadas (dataviz validate_palette, claro e escuro) */
+  #resultados { --serie-1: #0B6B45; --serie-2: #B07D00; }
+  @media (prefers-color-scheme: dark) { #resultados { --serie-1: #3DA877; --serie-2: #BF8A10; } }
+  .numeros { grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); }
+  .grafico { margin: 40px 0 0; background: var(--surface-200); border: 1px solid var(--line); border-radius: 20px; padding: 24px; position: relative; }
+  .grafico figcaption p { margin: 0; color: var(--ink-muted); max-width: 680px; }
+  .legenda { display: flex; flex-wrap: wrap; gap: 6px 18px; list-style: none; padding: 0; margin: 16px 0 8px; font-size: 15px; color: var(--ink-muted); }
+  .legenda i { display: inline-block; width: 12px; height: 12px; border-radius: 3px; margin-right: 6px; vertical-align: -1px; }
+  .legenda .com-cache { background: var(--serie-1); }
+  .legenda .sem-cache { background: var(--serie-2); }
+  .grafico svg { display: block; width: 100%; height: auto; overflow: visible; }
+  .grafico svg text { fill: var(--ink-muted); font: 500 13px var(--sans); }
+  .grafico svg .rotulo { fill: var(--ink); font-weight: 600; }
+  .grafico svg .grade-linha { stroke: var(--line); stroke-width: 1; }
+  .grafico svg .barra:hover, .grafico svg .barra:focus { opacity: .8; outline: none; }
+  .grafico svg .barra:focus-visible { outline: 2px solid var(--foco); }
+  .dica { position: absolute; pointer-events: none; background: var(--asfalto); color: var(--on-asfalto); font-size: 14px; padding: 6px 10px; border-radius: 8px; box-shadow: var(--sombra-1); white-space: nowrap; }
+  .grafico details { margin-top: 12px; }
+  .grafico summary { cursor: pointer; color: var(--placa); font-weight: 600; }
+  .grafico table { border-collapse: collapse; margin-top: 10px; font-size: 15px; width: 100%; max-width: 560px; }
+  .grafico th, .grafico td { text-align: left; padding: 6px 10px; border-bottom: 1px solid var(--line); }
+  .grafico td + td, .grafico th + th { text-align: right; font-variant-numeric: tabular-nums; }
+  .faixa-paradas { list-style: none; padding: 0; margin: 12px 0 20px; display: grid; grid-template-columns: repeat(6, 1fr); gap: 14px 2px; }
+  @media (max-width: 560px) { .faixa-paradas { grid-template-columns: repeat(3, 1fr); } }
+  .faixa-paradas li { display: flex; flex-direction: column; gap: 6px; font-size: 13px; line-height: 1.25; color: var(--ink-muted); }
+  .faixa-paradas li::before { content: ""; height: 36px; border-radius: 4px; }
+  .faixa-paradas li.ia::before { background: var(--serie-1); }
+  .faixa-paradas li.b::before { background: var(--serie-2); }
+  .grafico .nota { margin: 0; color: var(--ink-muted); font-size: 15px; }
+  .proximos { margin-top: 40px; }
+  .proximos ul { margin: 10px 0 0; padding-left: 20px; color: var(--ink-muted); }
+  .proximos li { margin: 6px 0; }
+  .proximos strong { color: var(--ink); }
+
   footer { background: var(--asfalto); color: var(--on-asfalto); padding: 40px 0; }
   footer a { color: var(--faixa); }
   footer p { margin: 4px 0; color: color-mix(in srgb, var(--on-asfalto) 75%, transparent); }
@@ -165,6 +223,8 @@
       <li><a href="#contexto">Contexto</a></li>
       <li><a href="#problema">Problema</a></li>
       <li><a href="#solucao">Solução</a></li>
+      <li><a href="#exemplo">Exemplo</a></li>
+      <li><a href="#resultados">Resultados</a></li>
       <li><a href="#equipe">Equipe</a></li>
       <li><a href="#evolucao">Evolução</a></li>
       <li><a href="#semanas">Semanas</a></li>
@@ -202,9 +262,16 @@
       <h2>O Desvio do começo ao fim</h2>
       <video class="video-resumo" controls preload="metadata" playsinline poster="videos/resumo-animado.jpg">
         <source src="videos/resumo-animado.mp4" type="video/mp4">
+        <track kind="subtitles" src="videos/resumo-animado.pt-BR.vtt" srclang="pt-BR" label="Português" default>
         Seu navegador não toca vídeo. <a href="videos/resumo-animado.mp4">Baixe o vídeo</a>.
       </video>
-      <p class="video-links">Também: <a href="videos/retrospectiva.mp4">Retrospectiva do que já foi feito (1 min 29 s)</a></p>
+      <h3 class="video-subtitulo">Retrospectiva do que já foi feito (1 min 29 s)</h3>
+      <video class="video-resumo" controls preload="metadata" playsinline poster="videos/retrospectiva.jpg">
+        <source src="videos/retrospectiva.mp4" type="video/mp4">
+        <track kind="subtitles" src="videos/retrospectiva.pt-BR.vtt" srclang="pt-BR" label="Português" default>
+        Seu navegador não toca vídeo. <a href="videos/retrospectiva.mp4">Baixe o vídeo</a>.
+      </video>
+      <p class="video-links">Atualizado em 25/11: de 0:35 a 1:05 o resumo mostra o app real no celular, no lugar das telas de referência. Legendas em português ligadas por padrão. Texto das legendas: <a href="videos/resumo-animado.pt-BR.vtt">resumo</a> e <a href="videos/retrospectiva.pt-BR.vtt">retrospectiva</a>.</p>
     </div>
   </section>
 
@@ -264,6 +331,121 @@
     </div>
   </section>
 
+  <section id="exemplo">
+    <div class="largura">
+      <span class="placa-titulo">Exemplo real</span>
+      <h2>Alegrete → Vitória da Conquista, do pedido ao roteiro</h2>
+      <div class="texto">
+        <p>Esta é a saída do coletor de verdade (código da <code>main</code>, 24/11), sem nada editado à mão. Os problemas que ela mostra estão marcados logo abaixo, porque são o que vamos corrigir nas próximas entregas.</p>
+      </div>
+      <ul class="telas-app" aria-label="Capturas do app no celular">
+        <li><img src="app/05-nova-viagem-preenchida.webp" width="420" height="883" loading="lazy" alt="Tela Nova viagem com Alegrete, RS, Vitória da Conquista, BA, carro, parada a cada 200 km e turismo, restaurante e posto ligados"><span>Nova viagem</span></li>
+        <li><img src="app/06-carregando.webp" width="420" height="883" loading="lazy" alt="Tela Carregando com rota, cidades e fotos prontas e o Instagram dos 45 restaurantes em andamento"><span>Busca em andamento</span></li>
+        <li><img src="app/08-paradas-com-bora.webp" width="420" height="883" loading="lazy" alt="Tela Paradas na ordem da estrada, de Alegrete a Presidente Prudente, com 2 lugares escolhidos em cada cidade e o botão Montar roteiro com 25 lugares"><span>Paradas</span></li>
+        <li><img src="app/09-roteiro.webp" width="420" height="883" loading="lazy" alt="Tela Roteiro com saída às 7h e os lugares numerados, cada um com o horário e a explicação da IA"><span>Roteiro da IA</span></li>
+        <li><img src="app/11-abrir-no-mapa.webp" width="420" height="883" loading="lazy" alt="Folha Abrir no mapa com a viagem dividida em 3 trechos para o Google Maps e a próxima parada para o Waze"><span>Abrir no mapa</span></li>
+      </ul>
+      <p class="fonte">Capturas do app rodando num Android em 25/11, com a API e o worker locais. A tela de deslizar os cards ainda é provisória (#21), então os 25 "Bora" desta viagem foram gravados direto no banco: 2 lugares por cidade, os mesmos da medição.</p>
+      <div class="exemplo">
+        <div class="cartao entrada">
+          <h3>Entrada</h3>
+          <dl class="pares">
+            <dt>De</dt><dd>Alegrete, RS</dd>
+            <dt>Para</dt><dd>Vitória da Conquista, BA</dd>
+            <dt>Veículo</dt><dd>Carro</dd>
+            <dt>Parar a cada</dt><dd>200 km</dd>
+            <dt>Procurar</dt><dd>Turismo, restaurante e posto</dd>
+            <dt>Saída</dt><dd>07:00</dd>
+            <dt>Gosto (triagem)</dt><dd>"Gosta de natureza e de comida regional, viaja sem pressa e prefere lugares bem avaliados."</dd>
+          </dl>
+        </div>
+        <div class="cartao saida">
+          <h3>Saída: 13 paradas, 2.819 km, uns 38 h de estrada</h3>
+          <ol class="paradas-ex">
+            <li><span class="km-tag">KM 178</span><strong>São Borja, RS</strong><span>Affamatto Pizzeria (com Instagram), Restaurante Universitário Talheres do Pampa, Casa Memorial João Goulart</span></li>
+            <li><span class="km-tag">KM 394</span><strong>Hohenau, Paraguai</strong><span>Parque Ecológico Ingeniero Alfredo Sitzmann, Love Eat, Mate Bar</span></li>
+            <li><span class="km-tag">KM 631</span><strong>Ciudad del Este, Paraguai</strong><span>Saltos del Monday, Museo Mensú, Teko Cafeteria</span></li>
+            <li><span class="km-tag">KM 774</span><strong>Cascavel, PR</strong><span>Monumento a Nossa Senhora Aparecida, Restaurante Popular</span></li>
+            <li><span class="km-tag">KM 1.573</span><strong>Barretos, SP</strong><span>Parque do Peão, Museu Histórico Ruy Menezes, Parque Municipal</span></li>
+            <li><span class="km-tag">KM 2.182</span><strong>Pirapora, MG</strong><span>Ponte Marechal Hermes, Barco a Vapor Benjamim Guimarães</span></li>
+            <li><span class="km-tag">KM 2.567</span><strong>Salinas, MG</strong><span>Museu da Cachaça, Cachaçaria Sabor de Minas (com Instagram)</span></li>
+            <li class="mais">e mais 6 paradas, até Vitória da Conquista (Cristo, Centro de Triagem de Animais Silvestres)</li>
+          </ol>
+          <h3 class="sub">Começo do roteiro que a IA montou</h3>
+          <ol class="roteiro-ex">
+            <li><time>09:24</time><strong>Affamatto Pizzeria</strong><span>"Primeira parada para refeição rápida, embora a chegada seja antes do horário de almoço."</span></li>
+            <li><time>12:18</time><strong>Parque Ecológico Alfredo Sitzmann</strong><span>"Visita ao parque ecológico para descanso e contato com a natureza ao meio-dia."</span></li>
+            <li><time>15:24</time><strong>Saltos del Monday</strong><span>"Cataratas do Monday, ponto turístico principal do fim da tarde."</span></li>
+            <li><time>17:24</time><strong>Restaurante Popular, Cascavel</strong><span>"Jantar dentro do horário de funcionamento (10-14h)."</span></li>
+          </ol>
+        </div>
+      </div>
+      <div class="grade">
+        <div class="cartao problema"><h3>A rota passa pelo Paraguai</h3><p>O OSRM público escolheu o caminho mais curto, por Hohenau e Ciudad del Este. Ninguém faz essa viagem com fronteira no meio: a rota precisa evitar outro país.</p></div>
+        <div class="cartao problema"><h3>O roteiro se contradiz</h3><p>A IA chama de jantar uma parada às 17h24 num restaurante que ela mesma diz abrir das 10h às 14h, e põe uma piscina "na madrugada". Falta pernoite: 38 h seguidas não é viagem de verdade.</p></div>
+        <div class="cartao problema"><h3>Sem nota nos cards</h3><p>Sem a chave da Places API, os cards vêm só do OpenStreetMap: nenhum tem nota, e só 2 das 13 paradas têm Instagram entre os 4 primeiros cards.</p></div>
+      </div>
+      <p class="fonte">Dados completos: <a href="dados/medicao-2026-11-24.json">medicao-2026-11-24.json</a>.</p>
+    </div>
+  </section>
+
+  <section id="resultados">
+    <div class="largura">
+      <span class="placa-titulo">Resultados</span>
+      <h2>Primeira medição com o código real</h2>
+      <div class="texto">
+        <p>Rodamos a viagem acima três vezes em 24/11, com o código da <code>main</code> (commit <code>a002d46</code>): uma sem cache, uma enchendo o cache com a IA ligada e uma com o cache cheio. Servidores públicos de OSRM, Nominatim e Overpass, sem Google, Groq no plano gratuito. É uma rota e um dia: os números mostram onde está o gargalo, não a média.</p>
+      </div>
+
+      <div class="grade numeros">
+        <div class="cartao"><div class="numero">26 <small>min</small></div><p>para a coleta inteira sem cache. A meta do PRD é o primeiro card em menos de 1 minuto.</p></div>
+        <div class="cartao"><div class="numero">94 <small>s</small></div><p>com o cache cheio; 79 s disso são a busca de Instagram, que não fica em cache.</p></div>
+        <div class="cartao"><div class="numero">6 <small>de 12</small></div><p>paradas ranqueadas pela IA; as outras 6 caíram no plano B, sem erro para a pessoa.</p></div>
+        <div class="cartao"><div class="numero">~17 <small>mil tokens</small></div><p>por viagem completa (1,1 mil por parada e 4,1 mil no roteiro). O vídeo cita 27 mil: era a estimativa de antes da medição.</p></div>
+      </div>
+
+      <figure class="grafico" id="grafico-etapas">
+        <figcaption><h3>Onde vai o tempo da coleta</h3><p>Minutos por etapa, na mesma viagem, sem cache e com o cache cheio.</p></figcaption>
+        <ul class="legenda" aria-hidden="true"><li><i class="sem-cache"></i>Sem cache</li><li><i class="com-cache"></i>Com cache cheio</li></ul>
+        <div class="area" role="img" aria-label="Sem cache: rota 0,04 min, cidades 8,8 min, lugares 15,9 min, Instagram 1,5 min. Com cache cheio: rota 0,01 min, cidades 0 min, lugares 0,3 min, Instagram 1,3 min."></div>
+        <div class="dica" role="status" hidden></div>
+        <details><summary>Ver a tabela</summary>
+          <table>
+            <thead><tr><th>Etapa</th><th>Sem cache</th><th>Com cache cheio</th></tr></thead>
+            <tbody>
+              <tr><td>Rota (OSRM)</td><td>2,3 s</td><td>0,5 s</td></tr>
+              <tr><td>Cidades no caminho (Overpass)</td><td>525,4 s</td><td>0,0 s</td></tr>
+              <tr><td>Lugares das 13 cidades</td><td>954,4 s</td><td>15,1 s</td></tr>
+              <tr><td>Instagram dos restaurantes</td><td>87,1 s</td><td>78,8 s</td></tr>
+              <tr><td><strong>Total</strong></td><td><strong>1.569,2 s</strong></td><td><strong>94,4 s</strong></td></tr>
+            </tbody>
+          </table>
+        </details>
+      </figure>
+
+      <figure class="grafico" id="grafico-planob">
+        <figcaption><h3>Quem ordenou cada parada</h3><p>As 12 paradas com 2 ou mais cards, na ordem da estrada. A IA ranqueia até 30 cards por parada; quando o limite de 8 mil tokens por minuto do plano gratuito esgota, a parada fica com a ordem estatística.</p></figcaption>
+        <ul class="legenda" aria-hidden="true"><li><i class="com-cache"></i>IA (Groq, gpt-oss-20b)</li><li><i class="sem-cache"></i>Plano B (ordem estatística)</li></ul>
+        <ol class="faixa-paradas">
+          <li class="ia" aria-label="São Borja: IA">São Borja</li><li class="ia" aria-label="Hohenau: IA">Hohenau</li><li class="ia" aria-label="Ciudad del Este: IA">Ciudad del Este</li><li class="ia" aria-label="Cascavel: IA">Cascavel</li><li class="ia" aria-label="Eng. Beltrão: IA">Eng. Beltrão</li><li class="ia" aria-label="Pres. Prudente: IA">Pres. Prudente</li>
+          <li class="b" aria-label="Penápolis: plano B">Penápolis</li><li class="b" aria-label="Barretos: plano B">Barretos</li><li class="b" aria-label="Pirapora: plano B">Pirapora</li><li class="b" aria-label="Francisco Sá: plano B">Francisco Sá</li><li class="b" aria-label="Salinas: plano B">Salinas</li><li class="b" aria-label="Vitória da Conquista: plano B">Vitória da Conquista</li>
+        </ol>
+        <p class="nota">As 6 primeiras responderam em 0,4 a 0,6 s cada. Depois delas, o limitador do próprio coletor viu que a próxima chamada passaria de 10 s de espera e usou o plano B na hora. O roteiro (gpt-oss-120b) respondeu em 2,9 s.</p>
+      </figure>
+
+      <div class="cartao proximos">
+        <h3>O que a medição muda no plano</h3>
+        <ul>
+          <li><strong>Mostrar os cards do OpenStreetMap antes do fim</strong> (#33): a primeira cidade fica pronta bem antes dos 26 minutos.</li>
+          <li><strong>Servidores próprios de OSRM e Overpass</strong> (#37): achar as cidades levou 9 minutos, e o Overpass público recusou duas rodadas por limite de uso.</li>
+          <li><strong>Cache do Instagram</strong>: com tudo em cache, ele é 84% do tempo.</li>
+          <li><strong>Rota só no Brasil e pernoite no roteiro</strong>: os dois erros do exemplo acima.</li>
+          <li><strong>Gabarito de paradas reais</strong>: montar à mão a lista certa para duas rotas conhecidas e medir quantos lugares o app acerta, inventa ou deixa de fora, com cada fonte e cada IA.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
   <section id="equipe">
     <div class="largura">
       <span class="placa-titulo">Equipe</span>
@@ -308,35 +490,43 @@
         <li class="entrega">
           <div class="marco"><span>A07</span></div>
           <div class="cartao">
-            <div class="cabeca"><h3>Base: Supabase, autenticação e design system</h3><span class="status andamento">Em andamento</span></div>
+            <div class="cabeca"><h3>Base: Supabase, autenticação e design system</h3><span class="status feita">Feita</span></div>
             <ul>
-              <li>Componentes base do design system no app (entregue)</li>
+              <li>Componentes base do design system no app</li>
+              <li>Supabase com schema, RLS e fila de jobs no Postgres; API autenticada pelo token do Supabase</li>
               <li>Limitador da IA com lock e prazo total de 10 s; validação dos cards e erros sem dados internos</li>
               <li>Autocompletar de cidade com a lista do IBGE, sem gastar a cota do Nominatim</li>
               <li>Mudança de escopo: só viagens por terra, com rota própria para bicicleta</li>
             </ul>
-            <div class="links"><span>Tag <code>atividade-07</code> ao fechar a entrega</span></div>
           </div>
         </li>
-        <li class="entrega futura">
+        <li class="entrega">
           <div class="marco"><span>A08</span></div>
           <div class="cartao">
-            <div class="cabeca"><h3>API completa e app conectado</h3><span class="status planejada">Planejada</span></div>
-            <p>Viagens salvas por pessoa, progresso da busca por etapa, cache de 30 dias e o app falando com a API.</p>
+            <div class="cabeca"><h3>API completa e telas no app</h3><span class="status feita">Feita</span></div>
+            <ul>
+              <li>Viagens salvas por pessoa, progresso da busca por etapa, cache de 30 dias e uso diário do Groq</li>
+              <li>Places API oficial no lugar do raspador do Google; exportar e apagar dados (LGPD) na API</li>
+              <li>No app: Céu, Estrada e cards de swipe a 60 fps, login, Nova viagem, Paradas, Roteiro e abrir no Maps ou Waze</li>
+            </ul>
           </div>
         </li>
-        <li class="entrega futura">
+        <li class="entrega">
           <div class="marco"><span>A09</span></div>
           <div class="cartao">
-            <div class="cabeca"><h3>Telas do fluxo da viagem</h3><span class="status planejada">Planejada</span></div>
-            <p>Triagem, minhas viagens, nova viagem e paradas. No backend, a Places API oficial e o controle da cota do Groq.</p>
+            <div class="cabeca"><h3>App conectado e primeira medição</h3><span class="status andamento">Em andamento</span></div>
+            <ul>
+              <li>App falando com a API na <code>main</code>: Minhas viagens, Carregando, favorito e desfazer, perfil de gosto no ranqueamento</li>
+              <li>Viagem Alegrete → Vitória da Conquista medida com o código real (veja <a href="#resultados">Resultados</a>)</li>
+              <li>Legendas em português nos dois vídeos</li>
+            </ul>
           </div>
         </li>
         <li class="entrega futura">
           <div class="marco"><span>A10</span></div>
           <div class="cartao">
             <div class="cabeca"><h3>Fechamento da Fase 1</h3><span class="status planejada">Planejada</span></div>
-            <p>Swipe com desfazer, roteiro por km e abertura no mapa: uma viagem real, do login ao roteiro.</p>
+            <p>Swipe com desfazer e triagem no app, build de teste no celular e uma viagem real, do login ao roteiro aberto no mapa.</p>
           </div>
         </li>
         <li class="entrega futura">
@@ -362,55 +552,59 @@
       <span class="placa-titulo">Semana a semana</span>
       <h2>Diário a partir de 9 de novembro</h2>
       <div class="texto">
-        <p>Uma entrada por semana. A semana atual vem dos commits e PRs; as próximas são o plano combinado com o grupo, uma entrega da disciplina por semana, e viram registro conforme acontecem.</p>
+        <p>Uma entrada por semana. As semanas que passaram vêm dos commits e PRs; as próximas são o plano combinado com o grupo, uma entrega da disciplina por semana, e viram registro conforme acontecem. Atualizado em 25/11.</p>
       </div>
       <div class="semanas">
         <div class="cartao semana">
-          <div class="cabeca"><span class="data">09/11 a 15/11</span><h3>A07 · Base do app e do coletor</h3><span class="status andamento">Esta semana</span></div>
+          <div class="cabeca"><span class="data">09/11 a 15/11</span><h3>A07 · Base do app e do coletor</h3><span class="status feita">Feita</span></div>
           <dl>
             <dt>10/11 · Emilly</dt><dd>Componentes base do design system no app (Button, Chip, TextField, Segmented, Rating, Toast, BottomNav, Icon) e o catálogo <code>/dev/componentes</code> nos dois temas. Entregas da disciplina no PRD. PRs #48 e #49.</dd>
             <dt>11/11 · Leonardo</dt><dd>Limitador da IA com lock por modelo e prazo total de 10 s; validação dos cards sem vazar erro interno. PRs #50 e #51.</dd>
             <dt>12/11 · Leonardo</dt><dd>Mudança de escopo para viagens só por terra, com rota de bicicleta (#52). Autocompletar de cidade pela lista do IBGE (#53), progresso por etapa (#54), cards do OpenStreetMap antes do Google (#55), cache de 30 dias (#56) e uso diário do Groq (#57). Revisão e merge de #48 e #49.</dd>
-            <dt>Falta na semana</dt><dd>Supabase, schema e autenticação (#1, #2, #3, Guilherme); componentes de estrada e swipe (#12, #20, Emilly); revisão e merge de #50 a #57.</dd>
+            <dt>13/11 · Leonardo</dt><dd>Supabase com schema, RLS e testes das migrações; fila de jobs e decisões no Postgres; API autenticada pelo token do Supabase (#58, que fecha #1, #2 e #3).</dd>
           </dl>
         </div>
         <div class="cartao semana">
-          <div class="cabeca"><span class="data">16/11 a 22/11</span><h3>A08 · API completa e app conectado</h3><span class="status planejada">Plano</span></div>
+          <div class="cabeca"><span class="data">16/11 a 22/11</span><h3>A08 · API completa e telas no app</h3><span class="status feita">Feita</span></div>
           <dl>
-            <dt>Emilly</dt><dd>Boas-vindas e login (#14); cliente da API e estado da viagem ativa (#13).</dd>
-            <dt>Leonardo</dt><dd>Guardar e listar viagens da pessoa (#4), depois da autenticação.</dd>
-            <dt>Guilherme</dt><dd>Perfil de gosto no ranqueamento (#8), favorito e desfazer (#9), deploy numa VPS (#10).</dd>
+            <dt>17/11 · Leonardo</dt><dd>Merge de #50 a #57. Projeto do Supabase criado (#66), Places API oficial no lugar do raspador do Google (#68), servidores próprios de OSRM, Nominatim e Overpass (#70), viagens guardadas por pessoa (#71), exportar e apagar dados (#72) e projeto no EAS (#74).</dd>
+            <dt>17/11 · Emilly</dt><dd>Céu, Estrada, Destaque e StopItem no app (#64); SwipeCard e SwipeActions com gesto a 60 fps (#65).</dd>
+            <dt>18/11 · Emilly</dt><dd>Cliente da API e estado da viagem ativa (#77); Boas-vindas e Entrar com Google, Apple e link por e-mail (#80).</dd>
+            <dt>18/11 · Guilherme</dt><dd>Favorito e desfazer decisão na API (#78); perfil de gosto da triagem no ranqueamento, com cache (#79).</dd>
+            <dt>20/11 e 21/11 · Emilly</dt><dd>Paradas na ordem da estrada (#82), Nova viagem (#84), Roteiro por km (#86), abrir no Maps ou Waze (#87), roteiro pela IA com explicação (#88) e editar o roteiro (#89).</dd>
+            <dt>Ficou para depois</dt><dd>Deploy numa VPS (#10): por enquanto tudo roda local.</dd>
           </dl>
         </div>
         <div class="cartao semana">
-          <div class="cabeca"><span class="data">23/11 a 29/11</span><h3>A09 · Telas do fluxo da viagem</h3><span class="status planejada">Plano</span></div>
+          <div class="cabeca"><span class="data">23/11 a 29/11</span><h3>A09 · App conectado e primeira medição</h3><span class="status andamento">Esta semana</span></div>
           <dl>
-            <dt>Emilly</dt><dd>Triagem (#15), Minhas viagens (#16), Nova viagem (#17), Paradas (#19).</dd>
-            <dt>Leonardo</dt><dd>Places API oficial no lugar do raspador (#36); decisão sobre o plano do Groq (#41).</dd>
-            <dt>Guilherme</dt><dd>Builds EAS do beta (#38) e observabilidade (#42).</dd>
+            <dt>24/11 · Leonardo</dt><dd>Revisão e merge de #76, #78, #79, #81, #83 e #85, com correções: o plano B do ranqueamento não vai mais para o cache, a tela Roteiro só chama a IA quando as decisões mudam e Nova viagem oferece carro, moto e bicicleta. O app conectado à API chega na <code>main</code>.</dd>
+            <dt>24/11 · Emilly</dt><dd>Minhas viagens (#83) e Carregando com as etapas da busca (#85).</dd>
+            <dt>25/11 · Leonardo</dt><dd>Viagem Alegrete → Vitória da Conquista medida com o código real (veja <a href="#resultados">Resultados</a>) e legendas em português nos dois vídeos.</dd>
+            <dt>Falta na semana</dt><dd>Triagem em conversa (#15, Emilly); builds EAS do beta (#38) e observabilidade (#42, Guilherme); decisão sobre o plano do Groq (#41, Leonardo).</dd>
           </dl>
         </div>
         <div class="cartao semana">
           <div class="cabeca"><span class="data">30/11 a 06/12</span><h3>A10 · Fechamento da Fase 1</h3><span class="status planejada">Plano</span></div>
           <dl>
-            <dt>Emilly</dt><dd>Carregando (#18), swipe com desfazer (#21), roteiro por km (#22), abrir no Maps ou Waze (#23).</dd>
-            <dt>Leonardo</dt><dd>Servidores próprios de OSRM, Nominatim e Overpass (#37).</dd>
-            <dt>Guilherme</dt><dd>Métricas (#43) e a viagem real de ponta a ponta (#24).</dd>
+            <dt>Emilly</dt><dd>Swipe com desfazer (#21) e detalhe do lugar (#28).</dd>
+            <dt>Leonardo</dt><dd>Gabarito de paradas reais para duas rotas conhecidas e comparação das fontes e das IAs contra ele.</dd>
+            <dt>Guilherme</dt><dd>Métricas (#43), aviso push (#39) e a viagem real de ponta a ponta no celular (#24).</dd>
           </dl>
         </div>
         <div class="cartao semana">
-          <div class="cabeca"><span class="data">07/12 a 13/12</span><h3>A11 · IA no roteiro, detalhe e perfil</h3><span class="status planejada">Plano</span></div>
+          <div class="cabeca"><span class="data">07/12 a 13/12</span><h3>A11 · Detalhe, perfil e medição da IA</h3><span class="status planejada">Plano</span></div>
           <dl>
-            <dt>Emilly</dt><dd>Roteiro pela IA com explicação (#27), perfil (#31), detalhe do lugar (#28).</dd>
-            <dt>Leonardo</dt><dd>Cards do OpenStreetMap na tela enquanto o Google chega (#33).</dd>
-            <dt>Guilherme</dt><dd>Aviso push quando a busca termina (#39).</dd>
+            <dt>Emilly</dt><dd>Perfil (#31) e filtro por categoria (#29).</dd>
+            <dt>Leonardo</dt><dd>Cards do OpenStreetMap na tela enquanto o Google chega (#33); ranqueamento só por distância contra o da IA, medido pelas escolhas do swipe (NDCG).</dd>
+            <dt>Guilherme</dt><dd>Observabilidade completa (#42) e preparação do beta.</dd>
           </dl>
         </div>
         <div class="cartao semana">
           <div class="cabeca"><span class="data">14/12 a 20/12</span><h3>A12 · Fim da Fase 2 e beta fechado</h3><span class="status planejada">Plano</span></div>
           <dl>
-            <dt>Emilly</dt><dd>Filtro por categoria (#29), editar roteiro (#30), refazer triagem (#32).</dd>
-            <dt>Leonardo</dt><dd>Exportar e apagar dados, LGPD (#40).</dd>
+            <dt>Emilly</dt><dd>Refazer triagem (#32) e o botão de exportar e apagar dados no perfil (#40).</dd>
+            <dt>Leonardo</dt><dd>Decisão sobre o plano do Groq com o uso real do beta (#41).</dd>
             <dt>Guilherme</dt><dd>Beta fechado com usuários (#44).</dd>
           </dl>
         </div>
@@ -427,5 +621,60 @@
   </div>
 </footer>
 
+<script>
+  // Gráfico das etapas da coleta (dados de dados/medicao-2026-11-24.json), em SVG simples.
+  (function () {
+    const fig = document.getElementById("grafico-etapas");
+    if (!fig) return;
+    const etapas = [
+      { nome: "Rota (OSRM)", sem: 2.3, com: 0.5 },
+      { nome: "Cidades no caminho", sem: 525.4, com: 0.0 },
+      { nome: "Lugares das 13 cidades", sem: 954.4, com: 15.1 },
+      { nome: "Instagram", sem: 87.1, com: 78.8 },
+    ];
+    const series = [
+      { chave: "sem", nome: "Sem cache", cor: "var(--serie-2)" },
+      { chave: "com", nome: "Com cache cheio", cor: "var(--serie-1)" },
+    ];
+    const fmt = (s) => s >= 60 ? (s / 60).toLocaleString("pt-BR", { maximumFractionDigits: 1 }) + " min"
+                                : s.toLocaleString("pt-BR", { maximumFractionDigits: 1 }) + " s";
+    const L = 168, R = 72, W = 720, barra = 14, vao = 2, grupo = barra * 2 + vao + 22, topo = 8;
+    const H = topo + etapas.length * grupo + 24, max = 16 * 60;
+    const x = (s) => L + (W - L - R) * (s / max);
+    const ns = "http://www.w3.org/2000/svg";
+    const svg = document.createElementNS(ns, "svg");
+    svg.setAttribute("viewBox", `0 0 ${W} ${H}`);
+    const el = (tag, at, pai = svg) => { const e = document.createElementNS(ns, tag); for (const k in at) e.setAttribute(k, at[k]); pai.appendChild(e); return e; };
+    for (let m = 0; m <= 16; m += 4) {
+      el("line", { class: "grade-linha", x1: x(m * 60), x2: x(m * 60), y1: topo, y2: H - 20 });
+      el("text", { x: x(m * 60), y: H - 4, "text-anchor": "middle" }).textContent = m + " min";
+    }
+    const dica = fig.querySelector(".dica");
+    const mostrar = (ev, txt) => {
+      dica.textContent = txt; dica.hidden = false;
+      const caixa = fig.getBoundingClientRect(), alvo = ev.target.getBoundingClientRect();
+      dica.style.left = Math.min(alvo.right - caixa.left + 8, caixa.width - dica.offsetWidth - 8) + "px";
+      dica.style.top = (alvo.top - caixa.top - 6) + "px";
+    };
+    etapas.forEach((e, i) => {
+      const y0 = topo + i * grupo;
+      el("text", { class: "rotulo", x: L - 12, y: y0 + barra + 2, "text-anchor": "end", "dominant-baseline": "middle" }).textContent = e.nome;
+      series.forEach((s, j) => {
+        const v = e[s.chave], y = y0 + j * (barra + vao), w = Math.max(x(v) - L, v > 0 ? 2 : 0);
+        const txt = `${e.nome}, ${s.nome.toLowerCase()}: ${fmt(v)}`;
+        // ponta arredondada de 4px só no fim da barra, presa no eixo
+        const r = Math.min(4, w / 2);
+        const p = el("path", { class: "barra", d: `M${L},${y} h${w - r} a${r},${r} 0 0 1 ${r},${r} v${barra - 2 * r} a${r},${r} 0 0 1 -${r},${r} h-${w - r} z`,
+                                fill: s.cor, tabindex: 0, role: "img", "aria-label": txt });
+        p.addEventListener("pointerenter", (ev) => mostrar(ev, txt));
+        p.addEventListener("focus", (ev) => mostrar(ev, txt));
+        p.addEventListener("pointerleave", () => { dica.hidden = true; });
+        p.addEventListener("blur", () => { dica.hidden = true; });
+        el("text", { x: L + w + 6, y: y + barra / 2, "dominant-baseline": "middle" }).textContent = fmt(v);
+      });
+    });
+    fig.querySelector(".area").appendChild(svg);
+  })();
+</script>
 </body>
 </html>

@@ -1,0 +1,1340 @@
+{
+ "data": "2026-11-24",
+ "codigo": "Lleooli/desvio main a002d46",
+ "rota": "Alegrete, RS -> Vitória da Conquista, BA (carro, parada a cada 200 km)",
+ "servidores": "OSRM, Nominatim e Overpass públicos; sem Google (OpenStreetMap, Wikipedia e Instagram); cache no Postgres local; Groq no plano gratuito",
+ "resumo_de_gosto_usado": "Gosta de natureza e de comida regional, viaja sem pressa e prefere lugares bem avaliados.",
+ "sem_cache": {
+  "origem": "Alegrete, RS",
+  "destino": "Vitória da Conquista, BA",
+  "sem_cache": true,
+  "etapas": [
+   {
+    "etapa": "rota",
+    "titulo": "Rota calculada",
+    "detalhe": "2.819 km, uns 38h de estrada",
+    "percentual": 20,
+    "s": 2.25
+   },
+   {
+    "etapa": "cidades",
+    "titulo": "12 cidades para parar",
+    "detalhe": "Uma a cada 200 km, mais o destino",
+    "percentual": 35,
+    "s": 527.62
+   },
+   {
+    "etapa": "lugares",
+    "titulo": "Buscando fotos e notas",
+    "detalhe": "São Borja agora · leva menos de 1 minuto",
+    "percentual": 35,
+    "s": 527.62
+   },
+   {
+    "etapa": "lugares",
+    "titulo": "Buscando fotos e notas",
+    "detalhe": "Hohenau agora · leva menos de 1 minuto",
+    "percentual": 38,
+    "s": 585.3
+   },
+   {
+    "etapa": "lugares",
+    "titulo": "Buscando fotos e notas",
+    "detalhe": "Ciudad del Este agora · leva menos de 1 minuto",
+    "percentual": 41,
+    "s": 657.78
+   },
+   {
+    "etapa": "lugares",
+    "titulo": "Buscando fotos e notas",
+    "detalhe": "Cascavel agora · leva menos de 1 minuto",
+    "percentual": 44,
+    "s": 735.89
+   },
+   {
+    "etapa": "lugares",
+    "titulo": "Buscando fotos e notas",
+    "detalhe": "Engenheiro Beltrão agora · leva menos de 1 minuto",
+    "percentual": 47,
+    "s": 817.75
+   },
+   {
+    "etapa": "lugares",
+    "titulo": "Buscando fotos e notas",
+    "detalhe": "Presidente Prudente agora · leva menos de 1 minuto",
+    "percentual": 50,
+    "s": 887.0
+   },
+   {
+    "etapa": "lugares",
+    "titulo": "Buscando fotos e notas",
+    "detalhe": "Penápolis agora · leva menos de 1 minuto",
+    "percentual": 53,
+    "s": 943.58
+   },
+   {
+    "etapa": "lugares",
+    "titulo": "Buscando fotos e notas",
+    "detalhe": "Barretos agora · leva menos de 1 minuto",
+    "percentual": 56,
+    "s": 1020.62
+   },
+   {
+    "etapa": "lugares",
+    "titulo": "Buscando fotos e notas",
+    "detalhe": "Perdizes agora · leva menos de 1 minuto",
+    "percentual": 59,
+    "s": 1096.69
+   },
+   {
+    "etapa": "lugares",
+    "titulo": "Buscando fotos e notas",
+    "detalhe": "Pirapora agora · leva menos de 1 minuto",
+    "percentual": 62,
+    "s": 1176.09
+   },
+   {
+    "etapa": "lugares",
+    "titulo": "Buscando fotos e notas",
+    "detalhe": "Francisco Sá agora · leva menos de 1 minuto",
+    "percentual": 65,
+    "s": 1249.06
+   },
+   {
+    "etapa": "lugares",
+    "titulo": "Buscando fotos e notas",
+    "detalhe": "Salinas agora · leva menos de 1 minuto",
+    "percentual": 68,
+    "s": 1312.88
+   },
+   {
+    "etapa": "lugares",
+    "titulo": "Buscando fotos e notas",
+    "detalhe": "Vitória da Conquista agora · leva menos de 1 minuto",
+    "percentual": 71,
+    "s": 1382.97
+   },
+   {
+    "etapa": "instagram",
+    "titulo": "Instagram dos restaurantes",
+    "detalhe": "45 restaurantes",
+    "percentual": 90,
+    "s": 1482.06
+   }
+  ],
+  "coleta_s": 1569.19,
+  "rota": {
+   "distancia_km": 2819,
+   "duracao_h": 37.9
+  },
+  "paradas": [
+   {
+    "nome": "São Borja",
+    "uf": "RS",
+    "km": 178,
+    "cards": 13
+   },
+   {
+    "nome": "Hohenau",
+    "uf": "Itapúa",
+    "km": 394,
+    "cards": 15
+   },
+   {
+    "nome": "Ciudad del Este",
+    "uf": "Alto Paraná",
+    "km": 631,
+    "cards": 15
+   },
+   {
+    "nome": "Cascavel",
+    "uf": "PR",
+    "km": 774,
+    "cards": 15
+   },
+   {
+    "nome": "Engenheiro Beltrão",
+    "uf": "PR",
+    "km": 987,
+    "cards": 5
+   },
+   {
+    "nome": "Presidente Prudente",
+    "uf": "SP",
+    "km": 1213,
+    "cards": 15
+   },
+   {
+    "nome": "Penápolis",
+    "uf": "SP",
+    "km": 1380,
+    "cards": 5
+   },
+   {
+    "nome": "Barretos",
+    "uf": "SP",
+    "km": 1573,
+    "cards": 11
+   },
+   {
+    "nome": "Perdizes",
+    "uf": "MG",
+    "km": 1809,
+    "cards": 1
+   },
+   {
+    "nome": "Pirapora",
+    "uf": "MG",
+    "km": 2182,
+    "cards": 12
+   },
+   {
+    "nome": "Francisco Sá",
+    "uf": "MG",
+    "km": 2404,
+    "cards": 2
+   },
+   {
+    "nome": "Salinas",
+    "uf": "MG",
+    "km": 2567,
+    "cards": 11
+   },
+   {
+    "nome": "Vitória da Conquista",
+    "uf": "BA",
+    "km": 2822,
+    "cards": 15
+   }
+  ],
+  "chamadas_ia": []
+ },
+ "cache_parcial_com_ia": {
+  "origem": "Alegrete, RS",
+  "destino": "Vitória da Conquista, BA",
+  "sem_cache": false,
+  "etapas": [
+   {
+    "etapa": "rota",
+    "titulo": "Rota calculada",
+    "detalhe": "2.819 km, uns 38h de estrada",
+    "percentual": 20,
+    "s": 0.7
+   },
+   {
+    "etapa": "cidades",
+    "titulo": "12 cidades para parar",
+    "detalhe": "Uma a cada 200 km, mais o destino",
+    "percentual": 35,
+    "s": 0.73
+   },
+   {
+    "etapa": "lugares",
+    "titulo": "Buscando fotos e notas",
+    "detalhe": "São Borja agora · leva menos de 1 minuto",
+    "percentual": 35,
+    "s": 0.73
+   },
+   {
+    "etapa": "lugares",
+    "titulo": "Buscando fotos e notas",
+    "detalhe": "Hohenau agora · leva menos de 1 minuto",
+    "percentual": 38,
+    "s": 0.73
+   },
+   {
+    "etapa": "lugares",
+    "titulo": "Buscando fotos e notas",
+    "detalhe": "Ciudad del Este agora · leva menos de 1 minuto",
+    "percentual": 41,
+    "s": 0.73
+   },
+   {
+    "etapa": "lugares",
+    "titulo": "Buscando fotos e notas",
+    "detalhe": "Cascavel agora · leva menos de 1 minuto",
+    "percentual": 44,
+    "s": 0.73
+   },
+   {
+    "etapa": "lugares",
+    "titulo": "Buscando fotos e notas",
+    "detalhe": "Engenheiro Beltrão agora · leva menos de 1 minuto",
+    "percentual": 47,
+    "s": 0.73
+   },
+   {
+    "etapa": "lugares",
+    "titulo": "Buscando fotos e notas",
+    "detalhe": "Presidente Prudente agora · leva menos de 1 minuto",
+    "percentual": 50,
+    "s": 0.73
+   },
+   {
+    "etapa": "lugares",
+    "titulo": "Buscando fotos e notas",
+    "detalhe": "Penápolis agora · leva menos de 1 minuto",
+    "percentual": 53,
+    "s": 77.52
+   },
+   {
+    "etapa": "lugares",
+    "titulo": "Buscando fotos e notas",
+    "detalhe": "Barretos agora · leva menos de 1 minuto",
+    "percentual": 56,
+    "s": 139.64
+   },
+   {
+    "etapa": "lugares",
+    "titulo": "Buscando fotos e notas",
+    "detalhe": "Perdizes agora · leva menos de 1 minuto",
+    "percentual": 59,
+    "s": 202.61
+   },
+   {
+    "etapa": "lugares",
+    "titulo": "Buscando fotos e notas",
+    "detalhe": "Pirapora agora · leva menos de 1 minuto",
+    "percentual": 62,
+    "s": 268.3
+   },
+   {
+    "etapa": "lugares",
+    "titulo": "Buscando fotos e notas",
+    "detalhe": "Francisco Sá agora · leva menos de 1 minuto",
+    "percentual": 65,
+    "s": 333.34
+   },
+   {
+    "etapa": "lugares",
+    "titulo": "Buscando fotos e notas",
+    "detalhe": "Salinas agora · leva menos de 1 minuto",
+    "percentual": 68,
+    "s": 400.16
+   },
+   {
+    "etapa": "lugares",
+    "titulo": "Buscando fotos e notas",
+    "detalhe": "Vitória da Conquista agora · leva menos de 1 minuto",
+    "percentual": 71,
+    "s": 492.98
+   },
+   {
+    "etapa": "instagram",
+    "titulo": "Instagram dos restaurantes",
+    "detalhe": "45 restaurantes",
+    "percentual": 90,
+    "s": 577.31
+   }
+  ],
+  "coleta_s": 643.94,
+  "rota": {
+   "distancia_km": 2819,
+   "duracao_h": 37.9
+  },
+  "paradas": [
+   {
+    "nome": "São Borja",
+    "uf": "RS",
+    "km": 178,
+    "cards": 13
+   },
+   {
+    "nome": "Hohenau",
+    "uf": "Itapúa",
+    "km": 394,
+    "cards": 15
+   },
+   {
+    "nome": "Ciudad del Este",
+    "uf": "Alto Paraná",
+    "km": 631,
+    "cards": 15
+   },
+   {
+    "nome": "Cascavel",
+    "uf": "PR",
+    "km": 774,
+    "cards": 15
+   },
+   {
+    "nome": "Engenheiro Beltrão",
+    "uf": "PR",
+    "km": 987,
+    "cards": 5
+   },
+   {
+    "nome": "Presidente Prudente",
+    "uf": "SP",
+    "km": 1213,
+    "cards": 15
+   },
+   {
+    "nome": "Penápolis",
+    "uf": "SP",
+    "km": 1380,
+    "cards": 5
+   },
+   {
+    "nome": "Barretos",
+    "uf": "SP",
+    "km": 1573,
+    "cards": 11
+   },
+   {
+    "nome": "Perdizes",
+    "uf": "MG",
+    "km": 1809,
+    "cards": 1
+   },
+   {
+    "nome": "Pirapora",
+    "uf": "MG",
+    "km": 2182,
+    "cards": 12
+   },
+   {
+    "nome": "Francisco Sá",
+    "uf": "MG",
+    "km": 2404,
+    "cards": 2
+   },
+   {
+    "nome": "Salinas",
+    "uf": "MG",
+    "km": 2567,
+    "cards": 11
+   },
+   {
+    "nome": "Vitória da Conquista",
+    "uf": "BA",
+    "km": 2822,
+    "cards": 15
+   }
+  ],
+  "roteiro": {
+   "fonte": "ia",
+   "s": 2.92,
+   "tokens": 0,
+   "itens": [
+    {
+     "nome": "Affamatto Pizzeria Delivery",
+     "categoria": "restaurante",
+     "km": 178.1,
+     "horas": 2.4,
+     "nota": null,
+     "porque": "Primeira parada para refeição rápida, embora a chegada seja antes do horário de almoço."
+    },
+    {
+     "nome": "Restaurante Universitário Talheres do Pampa",
+     "categoria": "restaurante",
+     "km": 185.5,
+     "horas": 2.5,
+     "nota": null,
+     "porque": "Segundo restaurante, também antes do horário de almoço, serve como lanche da manhã."
+    },
+    {
+     "nome": "Parque Ecológico Ingeniero Alfredo Sitzmann",
+     "categoria": "turismo",
+     "km": 393.4,
+     "horas": 5.3,
+     "nota": null,
+     "porque": "Visita ao parque ecológico para descanso e contato com a natureza ao meio‑dia."
+    },
+    {
+     "nome": "Guampa",
+     "categoria": "turismo",
+     "km": 401.3,
+     "horas": 5.4,
+     "nota": null,
+     "porque": "Parada rápida em Guampa logo após o parque, aproveitando a proximidade."
+    },
+    {
+     "nome": "Saltos del Monday",
+     "categoria": "turismo",
+     "km": 623.7,
+     "horas": 8.4,
+     "nota": null,
+     "porque": "Cataratas do Monday, ponto turístico principal do fim da tarde."
+    },
+    {
+     "nome": "Museo mensú",
+     "categoria": "turismo",
+     "km": 631.7,
+     "horas": 8.5,
+     "nota": null,
+     "porque": "Museu mensú, visita cultural após as cataratas."
+    },
+    {
+     "nome": "Monumento à Nossa Senhora Aparecida",
+     "categoria": "turismo",
+     "km": 774.0,
+     "horas": 10.4,
+     "nota": null,
+     "porque": "Monumento à Nossa Senhora Aparecida, parada de fim de tarde antes do jantar."
+    },
+    {
+     "nome": "Restaurante Popular",
+     "categoria": "restaurante",
+     "km": 774.3,
+     "horas": 10.4,
+     "nota": null,
+     "porque": "Restaurante Popular, jantar dentro do horário de funcionamento (10‑14h)."
+    },
+    {
+     "nome": "MIni Museu Historico João Pedro Senger",
+     "categoria": "turismo",
+     "km": 980.6,
+     "horas": 13.2,
+     "nota": null,
+     "porque": "Mini Museu Histórico João Pedro Senger, visita cultural noturna."
+    },
+    {
+     "nome": "Restaurante Sabor Caipira",
+     "categoria": "restaurante",
+     "km": 981.0,
+     "horas": 13.2,
+     "nota": null,
+     "porque": "Restaurante Sabor Caipira, refeição noturna após o museu."
+    },
+    {
+     "nome": "Relógio Monumento \"Tomio Aoki\"",
+     "categoria": "turismo",
+     "km": 1213.0,
+     "horas": 16.3,
+     "nota": null,
+     "porque": "Relógio Monumento \"Tomio Aoki\", ponto de interesse para encerrar o dia."
+    },
+    {
+     "nome": "Museu Histórico Prefeito Antônio Sandoval Netto",
+     "categoria": "turismo",
+     "km": 1213.0,
+     "horas": 16.3,
+     "nota": null,
+     "porque": "Museu Histórico do Prefeito Antônio Sandoval Netto, visita curta antes de seguir."
+    },
+    {
+     "nome": "Ricardo's Restaurante",
+     "categoria": "restaurante",
+     "km": 1380.9,
+     "horas": 18.5,
+     "nota": null,
+     "porque": "Ricardo's Restaurante, jantar tardio no segundo dia (aberto até 23h)."
+    },
+    {
+     "nome": "Pizzaria Mezzaluna",
+     "categoria": "restaurante",
+     "km": 1381.9,
+     "horas": 18.6,
+     "nota": null,
+     "porque": "Pizzaria Mezzaluna, opção de refeição noturna após o jantar anterior."
+    },
+    {
+     "nome": "Piscina Municipal Comendador Olívio Gagliard",
+     "categoria": "turismo",
+     "km": 1571.1,
+     "horas": 21.1,
+     "nota": null,
+     "porque": "Piscina Municipal, parada para relaxar nas primeiras horas da madrugada."
+    },
+    {
+     "nome": "Parque Municipal",
+     "categoria": "turismo",
+     "km": 1571.1,
+     "horas": 21.1,
+     "nota": null,
+     "porque": "Parque Municipal, passeio matinal ao amanhecer."
+    },
+    {
+     "nome": "posto três Mourões",
+     "categoria": "posto",
+     "km": 1800.1,
+     "horas": 24.2,
+     "nota": null,
+     "porque": "Posto Três Mourões, abastecimento e pausa antes de retomar a viagem."
+    },
+    {
+     "nome": "Ponte Marechal Hermes",
+     "categoria": "turismo",
+     "km": 2181.2,
+     "horas": 29.3,
+     "nota": null,
+     "porque": "Ponte Marechal Hermes, ponto histórico e foto de lembrança."
+    },
+    {
+     "nome": "Barco a Vapor Benjamim Guimarães",
+     "categoria": "turismo",
+     "km": 2181.7,
+     "horas": 29.3,
+     "nota": null,
+     "porque": "Barco a Vapor Benjamim Guimarães, atração turística complementar à ponte."
+    },
+    {
+     "nome": "Cafeteria Bom dia",
+     "categoria": "restaurante",
+     "km": 2403.9,
+     "horas": 32.3,
+     "nota": null,
+     "porque": "Cafeteria Bom dia, café da manhã do terceiro dia."
+    },
+    {
+     "nome": "Hamburgueria do Vinin",
+     "categoria": "restaurante",
+     "km": 2403.9,
+     "horas": 32.3,
+     "nota": null,
+     "porque": "Hamburgueria do Vinin, lanche rápido após a cafeteria."
+    },
+    {
+     "nome": "Hotel, Restaurante e Cachaçaria Sabor de Minas",
+     "categoria": "restaurante",
+     "km": 2562.5,
+     "horas": 34.4,
+     "nota": null,
+     "porque": "Hotel, Restaurante e Cachaçaria Sabor de Minas, pernoite e refeição completa."
+    },
+    {
+     "nome": "Museu da Cachaça",
+     "categoria": "turismo",
+     "km": 2570.7,
+     "horas": 34.5,
+     "nota": null,
+     "porque": "Museu da Cachaça, visita cultural antes de encerrar o dia."
+    },
+    {
+     "nome": "Centro de Triagem de Animais Silvestres",
+     "categoria": "turismo",
+     "km": 2822.1,
+     "horas": 37.9,
+     "nota": null,
+     "porque": "Centro de Triagem de Animais Silvestres, parada educativa no fim da tarde."
+    },
+    {
+     "nome": "Cristo",
+     "categoria": "turismo",
+     "km": 2822.1,
+     "horas": 37.9,
+     "nota": null,
+     "porque": "Cristo, ponto turístico para fechar a viagem com vista panorâmica."
+    }
+   ]
+  },
+  "ranqueamento": [
+   {
+    "parada": "São Borja",
+    "cards": 13,
+    "ia": true,
+    "s": 0.64,
+    "tokens": 0
+   },
+   {
+    "parada": "Hohenau",
+    "cards": 15,
+    "ia": true,
+    "s": 0.48,
+    "tokens": 0
+   },
+   {
+    "parada": "Ciudad del Este",
+    "cards": 15,
+    "ia": true,
+    "s": 0.59,
+    "tokens": 1136
+   },
+   {
+    "parada": "Cascavel",
+    "cards": 15,
+    "ia": true,
+    "s": 0.5,
+    "tokens": 1318
+   },
+   {
+    "parada": "Engenheiro Beltrão",
+    "cards": 5,
+    "ia": true,
+    "s": 0.39,
+    "tokens": 1267
+   },
+   {
+    "parada": "Presidente Prudente",
+    "cards": 15,
+    "ia": true,
+    "s": 0.48,
+    "tokens": 0
+   },
+   {
+    "parada": "Penápolis",
+    "cards": 5,
+    "ia": false,
+    "s": 0.0,
+    "tokens": 0
+   },
+   {
+    "parada": "Barretos",
+    "cards": 11,
+    "ia": false,
+    "s": 0.0,
+    "tokens": 0
+   },
+   {
+    "parada": "Pirapora",
+    "cards": 12,
+    "ia": false,
+    "s": 0.0,
+    "tokens": 0
+   },
+   {
+    "parada": "Francisco Sá",
+    "cards": 2,
+    "ia": false,
+    "s": 0.0,
+    "tokens": 0
+   },
+   {
+    "parada": "Salinas",
+    "cards": 11,
+    "ia": false,
+    "s": 0.0,
+    "tokens": 0
+   },
+   {
+    "parada": "Vitória da Conquista",
+    "cards": 15,
+    "ia": false,
+    "s": 0.0,
+    "tokens": 0
+   }
+  ],
+  "exemplo_cards": [
+   {
+    "parada": "São Borja",
+    "cards": [
+     {
+      "nome": "Affamatto Pizzeria Delivery",
+      "categoria": "restaurante",
+      "nota": null,
+      "instagram": "https://instagram.com/affamato.pizzeria",
+      "fonte": "openstreetmap"
+     },
+     {
+      "nome": "Restaurante Universitário Talheres do Pampa",
+      "categoria": "restaurante",
+      "nota": null,
+      "instagram": null,
+      "fonte": "openstreetmap"
+     },
+     {
+      "nome": "Cavalhada",
+      "categoria": "restaurante",
+      "nota": null,
+      "instagram": null,
+      "fonte": "openstreetmap"
+     },
+     {
+      "nome": "Casa Memorial João Goulart",
+      "categoria": "turismo",
+      "nota": null,
+      "instagram": null,
+      "fonte": "openstreetmap"
+     }
+    ]
+   },
+   {
+    "parada": "Hohenau",
+    "cards": [
+     {
+      "nome": "Parque Ecológico Ingeniero Alfredo Sitzmann",
+      "categoria": "turismo",
+      "nota": null,
+      "instagram": null,
+      "fonte": "openstreetmap"
+     },
+     {
+      "nome": "Guampa",
+      "categoria": "turismo",
+      "nota": null,
+      "instagram": null,
+      "fonte": "openstreetmap"
+     },
+     {
+      "nome": "Love Eat",
+      "categoria": "restaurante",
+      "nota": null,
+      "instagram": null,
+      "fonte": "openstreetmap"
+     },
+     {
+      "nome": "Mate Bar",
+      "categoria": "restaurante",
+      "nota": null,
+      "instagram": null,
+      "fonte": "openstreetmap"
+     }
+    ]
+   },
+   {
+    "parada": "Ciudad del Este",
+    "cards": [
+     {
+      "nome": "Saltos del Monday",
+      "categoria": "turismo",
+      "nota": null,
+      "instagram": null,
+      "fonte": "openstreetmap"
+     },
+     {
+      "nome": "Museo mensú",
+      "categoria": "turismo",
+      "nota": null,
+      "instagram": null,
+      "fonte": "openstreetmap"
+     },
+     {
+      "nome": "Giraffas",
+      "categoria": "restaurante",
+      "nota": null,
+      "instagram": null,
+      "fonte": "openstreetmap"
+     },
+     {
+      "nome": "Teko cafeteria",
+      "categoria": "restaurante",
+      "nota": null,
+      "instagram": null,
+      "fonte": "openstreetmap"
+     }
+    ]
+   },
+   {
+    "parada": "Cascavel",
+    "cards": [
+     {
+      "nome": "Monumento à Nossa Senhora Aparecida",
+      "categoria": "turismo",
+      "nota": null,
+      "instagram": null,
+      "fonte": "openstreetmap"
+     },
+     {
+      "nome": "Restaurante Popular",
+      "categoria": "restaurante",
+      "nota": null,
+      "instagram": null,
+      "fonte": "openstreetmap"
+     },
+     {
+      "nome": "Panificadora Jardim Cristal",
+      "categoria": "restaurante",
+      "nota": null,
+      "instagram": null,
+      "fonte": "openstreetmap"
+     },
+     {
+      "nome": "Chef's Pizza Delivery",
+      "categoria": "restaurante",
+      "nota": null,
+      "instagram": null,
+      "fonte": "openstreetmap"
+     }
+    ]
+   },
+   {
+    "parada": "Engenheiro Beltrão",
+    "cards": [
+     {
+      "nome": "Restaurante Sabor Caipira",
+      "categoria": "restaurante",
+      "nota": null,
+      "instagram": null,
+      "fonte": "openstreetmap"
+     },
+     {
+      "nome": "MIni Museu Historico João Pedro Senger",
+      "categoria": "turismo",
+      "nota": null,
+      "instagram": null,
+      "fonte": "openstreetmap"
+     },
+     {
+      "nome": "Bem Vindo a Sertãozinho",
+      "categoria": "turismo",
+      "nota": null,
+      "instagram": null,
+      "fonte": "openstreetmap"
+     },
+     {
+      "nome": "Marco da urbanização do distrito de Sertãozinho",
+      "categoria": "turismo",
+      "nota": null,
+      "instagram": null,
+      "fonte": "openstreetmap"
+     }
+    ]
+   },
+   {
+    "parada": "Presidente Prudente",
+    "cards": [
+     {
+      "nome": "Relógio Monumento \"Tomio Aoki\"",
+      "categoria": "turismo",
+      "nota": null,
+      "instagram": null,
+      "fonte": "openstreetmap"
+     },
+     {
+      "nome": "Museu Histórico Prefeito Antônio Sandoval Netto",
+      "categoria": "turismo",
+      "nota": null,
+      "instagram": null,
+      "fonte": "openstreetmap"
+     },
+     {
+      "nome": "Monumento comemorativo do Centenário de fundação do Rotary Internacional",
+      "categoria": "turismo",
+      "nota": null,
+      "instagram": null,
+      "fonte": "openstreetmap"
+     },
+     {
+      "nome": "Cinquentenário da Revolução Constitucionalista",
+      "categoria": "turismo",
+      "nota": null,
+      "instagram": null,
+      "fonte": "openstreetmap"
+     }
+    ]
+   },
+   {
+    "parada": "Penápolis",
+    "cards": [
+     {
+      "nome": "Ricardo's Restaurante",
+      "categoria": "restaurante",
+      "nota": null,
+      "instagram": null,
+      "fonte": "openstreetmap"
+     },
+     {
+      "nome": "Pizzaria Mezzaluna",
+      "categoria": "restaurante",
+      "nota": null,
+      "instagram": null,
+      "fonte": "openstreetmap"
+     },
+     {
+      "nome": "Batata Pizzaria",
+      "categoria": "restaurante",
+      "nota": null,
+      "instagram": null,
+      "fonte": "openstreetmap"
+     },
+     {
+      "nome": "Shell",
+      "categoria": "posto",
+      "nota": null,
+      "instagram": null,
+      "fonte": "openstreetmap"
+     }
+    ]
+   },
+   {
+    "parada": "Barretos",
+    "cards": [
+     {
+      "nome": "Piscina Municipal Comendador Olívio Gagliard",
+      "categoria": "turismo",
+      "nota": null,
+      "instagram": null,
+      "fonte": "openstreetmap"
+     },
+     {
+      "nome": "Parque Municipal",
+      "categoria": "turismo",
+      "nota": null,
+      "instagram": null,
+      "fonte": "openstreetmap"
+     },
+     {
+      "nome": "Parque do Peão",
+      "categoria": "turismo",
+      "nota": null,
+      "instagram": null,
+      "fonte": "openstreetmap"
+     },
+     {
+      "nome": "Museu Histórico, Artístico e Folclórico Ruy Menezes",
+      "categoria": "turismo",
+      "nota": null,
+      "instagram": null,
+      "fonte": "openstreetmap"
+     }
+    ]
+   },
+   {
+    "parada": "Perdizes",
+    "cards": [
+     {
+      "nome": "posto três Mourões",
+      "categoria": "posto",
+      "nota": null,
+      "instagram": null,
+      "fonte": "openstreetmap"
+     }
+    ]
+   },
+   {
+    "parada": "Pirapora",
+    "cards": [
+     {
+      "nome": "Ponte Marechal Hermes",
+      "categoria": "turismo",
+      "nota": null,
+      "instagram": null,
+      "fonte": "openstreetmap"
+     },
+     {
+      "nome": "Barco a Vapor Benjamim Guimarães",
+      "categoria": "turismo",
+      "nota": null,
+      "instagram": null,
+      "fonte": "openstreetmap"
+     },
+     {
+      "nome": "Restaurante Egnaldo",
+      "categoria": "restaurante",
+      "nota": null,
+      "instagram": null,
+      "fonte": "openstreetmap"
+     },
+     {
+      "nome": "Mister cheeff",
+      "categoria": "restaurante",
+      "nota": null,
+      "instagram": null,
+      "fonte": "openstreetmap"
+     }
+    ]
+   },
+   {
+    "parada": "Francisco Sá",
+    "cards": [
+     {
+      "nome": "Cafeteria Bom dia",
+      "categoria": "restaurante",
+      "nota": null,
+      "instagram": null,
+      "fonte": "openstreetmap"
+     },
+     {
+      "nome": "Hamburgueria do Vinin",
+      "categoria": "restaurante",
+      "nota": null,
+      "instagram": null,
+      "fonte": "openstreetmap"
+     }
+    ]
+   },
+   {
+    "parada": "Salinas",
+    "cards": [
+     {
+      "nome": "Museu da Cachaça",
+      "categoria": "turismo",
+      "nota": null,
+      "instagram": null,
+      "fonte": "openstreetmap"
+     },
+     {
+      "nome": "Hotel, Restaurante e Cachaçaria Sabor de Minas",
+      "categoria": "restaurante",
+      "nota": null,
+      "instagram": "https://instagram.com/sabordeminassalinas",
+      "fonte": "openstreetmap"
+     },
+     {
+      "nome": "Restaurante Bakaninha",
+      "categoria": "restaurante",
+      "nota": null,
+      "instagram": null,
+      "fonte": "openstreetmap"
+     },
+     {
+      "nome": "Restaurante Nakayama",
+      "categoria": "restaurante",
+      "nota": null,
+      "instagram": null,
+      "fonte": "openstreetmap"
+     }
+    ]
+   },
+   {
+    "parada": "Vitória da Conquista",
+    "cards": [
+     {
+      "nome": "Centro de Triagem de Animais Silvestres",
+      "categoria": "turismo",
+      "nota": null,
+      "instagram": null,
+      "fonte": "openstreetmap"
+     },
+     {
+      "nome": "Cristo",
+      "categoria": "turismo",
+      "nota": null,
+      "instagram": null,
+      "fonte": "openstreetmap"
+     },
+     {
+      "nome": "Monumento ao Gari",
+      "categoria": "turismo",
+      "nota": null,
+      "instagram": null,
+      "fonte": "openstreetmap"
+     },
+     {
+      "nome": "Bíblia Sagrada",
+      "categoria": "turismo",
+      "nota": null,
+      "instagram": null,
+      "fonte": "openstreetmap"
+     }
+    ]
+   }
+  ],
+  "chamadas_ia": [
+   {
+    "modelo": "openai/gpt-oss-20b",
+    "tokens": 1049
+   },
+   {
+    "modelo": "openai/gpt-oss-20b",
+    "tokens": 1136
+   },
+   {
+    "modelo": "openai/gpt-oss-20b",
+    "tokens": 1318
+   },
+   {
+    "modelo": "openai/gpt-oss-20b",
+    "tokens": 1267
+   },
+   {
+    "modelo": "openai/gpt-oss-20b",
+    "tokens": 588
+   },
+   {
+    "modelo": "openai/gpt-oss-20b",
+    "tokens": 1172
+   },
+   {
+    "modelo": "openai/gpt-oss-120b",
+    "tokens": 4061
+   }
+  ]
+ },
+ "com_cache": {
+  "origem": "Alegrete, RS",
+  "destino": "Vitória da Conquista, BA",
+  "sem_cache": false,
+  "etapas": [
+   {
+    "etapa": "rota",
+    "titulo": "Rota calculada",
+    "detalhe": "2.819 km, uns 38h de estrada",
+    "percentual": 20,
+    "s": 0.48
+   },
+   {
+    "etapa": "cidades",
+    "titulo": "12 cidades para parar",
+    "detalhe": "Uma a cada 200 km, mais o destino",
+    "percentual": 35,
+    "s": 0.5
+   },
+   {
+    "etapa": "lugares",
+    "titulo": "Buscando fotos e notas",
+    "detalhe": "São Borja agora · leva menos de 1 minuto",
+    "percentual": 35,
+    "s": 0.5
+   },
+   {
+    "etapa": "lugares",
+    "titulo": "Buscando fotos e notas",
+    "detalhe": "Hohenau agora · leva menos de 1 minuto",
+    "percentual": 38,
+    "s": 0.5
+   },
+   {
+    "etapa": "lugares",
+    "titulo": "Buscando fotos e notas",
+    "detalhe": "Ciudad del Este agora · leva menos de 1 minuto",
+    "percentual": 41,
+    "s": 0.5
+   },
+   {
+    "etapa": "lugares",
+    "titulo": "Buscando fotos e notas",
+    "detalhe": "Cascavel agora · leva menos de 1 minuto",
+    "percentual": 44,
+    "s": 0.5
+   },
+   {
+    "etapa": "lugares",
+    "titulo": "Buscando fotos e notas",
+    "detalhe": "Engenheiro Beltrão agora · leva menos de 1 minuto",
+    "percentual": 47,
+    "s": 0.5
+   },
+   {
+    "etapa": "lugares",
+    "titulo": "Buscando fotos e notas",
+    "detalhe": "Presidente Prudente agora · leva menos de 1 minuto",
+    "percentual": 50,
+    "s": 0.5
+   },
+   {
+    "etapa": "lugares",
+    "titulo": "Buscando fotos e notas",
+    "detalhe": "Penápolis agora · leva menos de 1 minuto",
+    "percentual": 53,
+    "s": 0.5
+   },
+   {
+    "etapa": "lugares",
+    "titulo": "Buscando fotos e notas",
+    "detalhe": "Barretos agora · leva menos de 1 minuto",
+    "percentual": 56,
+    "s": 0.5
+   },
+   {
+    "etapa": "lugares",
+    "titulo": "Buscando fotos e notas",
+    "detalhe": "Perdizes agora · leva menos de 1 minuto",
+    "percentual": 59,
+    "s": 0.5
+   },
+   {
+    "etapa": "lugares",
+    "titulo": "Buscando fotos e notas",
+    "detalhe": "Pirapora agora · leva menos de 1 minuto",
+    "percentual": 62,
+    "s": 0.52
+   },
+   {
+    "etapa": "lugares",
+    "titulo": "Buscando fotos e notas",
+    "detalhe": "Francisco Sá agora · leva menos de 1 minuto",
+    "percentual": 65,
+    "s": 0.52
+   },
+   {
+    "etapa": "lugares",
+    "titulo": "Buscando fotos e notas",
+    "detalhe": "Salinas agora · leva menos de 1 minuto",
+    "percentual": 68,
+    "s": 0.52
+   },
+   {
+    "etapa": "lugares",
+    "titulo": "Buscando fotos e notas",
+    "detalhe": "Vitória da Conquista agora · leva menos de 1 minuto",
+    "percentual": 71,
+    "s": 0.52
+   },
+   {
+    "etapa": "instagram",
+    "titulo": "Instagram dos restaurantes",
+    "detalhe": "45 restaurantes",
+    "percentual": 90,
+    "s": 15.58
+   }
+  ],
+  "coleta_s": 94.42,
+  "rota": {
+   "distancia_km": 2819,
+   "duracao_h": 37.9
+  },
+  "paradas": [
+   {
+    "nome": "São Borja",
+    "uf": "RS",
+    "km": 178,
+    "cards": 13
+   },
+   {
+    "nome": "Hohenau",
+    "uf": "Itapúa",
+    "km": 394,
+    "cards": 15
+   },
+   {
+    "nome": "Ciudad del Este",
+    "uf": "Alto Paraná",
+    "km": 631,
+    "cards": 15
+   },
+   {
+    "nome": "Cascavel",
+    "uf": "PR",
+    "km": 774,
+    "cards": 15
+   },
+   {
+    "nome": "Engenheiro Beltrão",
+    "uf": "PR",
+    "km": 987,
+    "cards": 5
+   },
+   {
+    "nome": "Presidente Prudente",
+    "uf": "SP",
+    "km": 1213,
+    "cards": 15
+   },
+   {
+    "nome": "Penápolis",
+    "uf": "SP",
+    "km": 1380,
+    "cards": 5
+   },
+   {
+    "nome": "Barretos",
+    "uf": "SP",
+    "km": 1573,
+    "cards": 11
+   },
+   {
+    "nome": "Perdizes",
+    "uf": "MG",
+    "km": 1809,
+    "cards": 1
+   },
+   {
+    "nome": "Pirapora",
+    "uf": "MG",
+    "km": 2182,
+    "cards": 12
+   },
+   {
+    "nome": "Francisco Sá",
+    "uf": "MG",
+    "km": 2404,
+    "cards": 2
+   },
+   {
+    "nome": "Salinas",
+    "uf": "MG",
+    "km": 2567,
+    "cards": 11
+   },
+   {
+    "nome": "Vitória da Conquista",
+    "uf": "BA",
+    "km": 2822,
+    "cards": 15
+   }
+  ],
+  "chamadas_ia": []
+ }
+}
