@@ -239,6 +239,7 @@
     <p class="lema">Um app de celular que monta viagens por terra, de carro, moto ou bicicleta, com paradas que você escolhe deslizando o dedo.</p>
     <div class="botoes">
       <a class="botao principal" href="#evolucao">Ver a evolução</a>
+      <a class="botao secundario" href="https://claude.ai/artifact/6Khf5MqLSv33JXgoYnhar4">Slides da evolução</a>
       <a class="botao secundario" href="https://github.com/Lleooli/desvio">Repositório</a>
     </div>
   </div>
@@ -436,10 +437,10 @@
       <div class="cartao proximos">
         <h3>O que a medição muda no plano</h3>
         <ul>
-          <li><strong>Mostrar os cards do OpenStreetMap antes do fim</strong> (#33): a primeira cidade fica pronta bem antes dos 26 minutos.</li>
-          <li><strong>Servidores próprios de OSRM e Overpass</strong> (#37): achar as cidades levou 9 minutos, e o Overpass público recusou duas rodadas por limite de uso.</li>
-          <li><strong>Cache do Instagram</strong>: com tudo em cache, ele é 84% do tempo.</li>
-          <li><strong>Rota só no Brasil e pernoite no roteiro</strong>: os dois erros do exemplo acima.</li>
+          <li><strong>Mostrar os cards do OpenStreetMap antes do fim</strong> (#33): a primeira cidade fica pronta bem antes dos 26 minutos. <em>Feito em 25/11 (#102).</em></li>
+          <li><strong>Servidores próprios de OSRM e Overpass</strong> (#37): achar as cidades levou 9 minutos, e o Overpass público recusou duas rodadas por limite de uso. Enquanto isso, as cidades já coletadas passam a ser reaproveitadas entre viagens (#105).</li>
+          <li><strong>Cache do Instagram</strong>: com tudo em cache, ele é 84% do tempo. <em>Feito em 25/11: cache por lugar (#105).</em></li>
+          <li><strong>Rota só no Brasil e pernoite no roteiro</strong>: os dois erros do exemplo acima. <em>Feito em 25/11 (#103 e #106).</em></li>
           <li><strong>Gabarito de paradas reais</strong>: montar à mão a lista certa para duas rotas conhecidas e medir quantos lugares o app acerta, inventa ou deixa de fora, com cada fonte e cada IA.</li>
         </ul>
       </div>
@@ -464,6 +465,7 @@
       <h2>A estrada do semestre</h2>
       <div class="texto">
         <p>Cada entrega da disciplina fecha com a tag <code>atividade-NN</code> no repositório e um release com o que mudou. Eu cuido do coletor e da IA; Emilly, das telas e do design system; Guilherme, de infraestrutura, dados e qualidade.</p>
+        <p>A mesma história em slides, para a apresentação: <a href="https://claude.ai/artifact/6Khf5MqLSv33JXgoYnhar4">Desvio — Evolução do projeto</a> (atualizado em 25/11).</p>
       </div>
 
       <ol class="linha-do-tempo">
@@ -518,9 +520,10 @@
           <div class="cartao">
             <div class="cabeca"><h3>App conectado e primeira medição</h3><span class="status andamento">Em andamento</span></div>
             <ul>
-              <li>App falando com a API na <code>main</code>: Minhas viagens, Carregando, favorito e desfazer, perfil de gosto no ranqueamento</li>
+              <li>App falando com a API na <code>main</code>: Minhas viagens, Carregando, swipe com desfazer, triagem em conversa, detalhe do lugar, filtro por categoria e Perfil com exportar e apagar dados</li>
               <li>Viagem Alegrete → Vitória da Conquista medida com o código real (veja <a href="#resultados">Resultados</a>)</li>
-              <li>Legendas em português nos dois vídeos</li>
+              <li>O que a medição mostrou já virou código: rota sem sair do Brasil, agenda por dia com pernoite e hotel, cards do OpenStreetMap antes do Google e cidades reaproveitadas entre viagens</li>
+              <li>Em revisão: aviso push, métricas das metas do PRD, Sentry, deploy numa VPS e builds do beta</li>
             </ul>
           </div>
         </li>
@@ -528,21 +531,21 @@
           <div class="marco"><span>A10</span></div>
           <div class="cartao">
             <div class="cabeca"><h3>Fechamento da Fase 1</h3><span class="status planejada">Planejada</span></div>
-            <p>Swipe com desfazer e triagem no app, build de teste no celular e uma viagem real, do login ao roteiro aberto no mapa.</p>
+            <p>Build de teste no celular, aviso push e métricas ligados, e uma viagem real, do login ao roteiro aberto no mapa.</p>
           </div>
         </li>
         <li class="entrega futura">
           <div class="marco"><span>A11</span></div>
           <div class="cartao">
-            <div class="cabeca"><h3>Fase 2: IA no roteiro, detalhe e perfil</h3><span class="status planejada">Planejada</span></div>
-            <p>Roteiro ajustado ao horário com explicação, detalhe do lugar, perfil de gosto e cards antes do Google chegar.</p>
+            <div class="cabeca"><h3>Fase 2: medir a IA</h3><span class="status planejada">Planejada</span></div>
+            <p>Nova medição depois das correções, gabarito de paradas reais para duas rotas e o ranqueamento da IA contra o só por distância. O detalhe do lugar, o perfil e os cards antes do Google adiantaram para a A09.</p>
           </div>
         </li>
         <li class="entrega futura">
           <div class="marco"><span>A12</span></div>
           <div class="cartao">
             <div class="cabeca"><h3>Fim da Fase 2 e beta fechado</h3><span class="status planejada">Planejada</span></div>
-            <p>Filtros e edição do roteiro, exportar e apagar dados (LGPD) e testes com usuários.</p>
+            <p>API numa VPS, observabilidade ligada e testes com usuários. Filtros, edição do roteiro e exportar e apagar dados (LGPD) já estão no app.</p>
           </div>
         </li>
       </ol>
@@ -582,31 +585,33 @@
           <dl>
             <dt>24/11 · Leonardo</dt><dd>Revisão e merge de #76, #78, #79, #81, #83 e #85, com correções: o plano B do ranqueamento não vai mais para o cache, a tela Roteiro só chama a IA quando as decisões mudam e Nova viagem oferece carro, moto e bicicleta. O app conectado à API chega na <code>main</code>.</dd>
             <dt>24/11 · Emilly</dt><dd>Minhas viagens (#83) e Carregando com as etapas da busca (#85).</dd>
-            <dt>25/11 · Leonardo</dt><dd>Viagem Alegrete → Vitória da Conquista medida com o código real (veja <a href="#resultados">Resultados</a>) e legendas em português nos dois vídeos.</dd>
-            <dt>Falta na semana</dt><dd>Triagem em conversa (#15, Emilly); builds EAS do beta (#38) e observabilidade (#42, Guilherme); decisão sobre o plano do Groq (#41, Leonardo).</dd>
+            <dt>25/11 · Leonardo</dt><dd>Viagem Alegrete → Vitória da Conquista medida com o código real (veja <a href="#resultados">Resultados</a>) e legendas em português nos dois vídeos. A medição virou código no mesmo dia: rota sem sair do Brasil, agenda com pernoite e horário de funcionamento, e menos plano B no ranqueamento (#103); pernoite com hotéis (#106); cidades reaproveitadas entre viagens (#105); cards do OpenStreetMap no swipe antes do Google (#102); Seus dados no Perfil (#101); decisão do plano do Groq (#100).</dd>
+            <dt>25/11 · Emilly</dt><dd>Swipe com desfazer (#90), triagem em conversa (#91), Perfil (#92), detalhe do lugar (#96), filtro por categoria (#97), refazer a triagem (#98), teclado em Entrar e aviso de login fora do ar (#115) e margens seguras no Roteiro (#116).</dd>
+            <dt>25/11 · Guilherme</dt><dd>Favorito e desfazer (#78) e perfil de gosto no ranqueamento (#79) na <code>main</code>. Em revisão: métricas (#108), aviso push (#111), Sentry (#112), builds do beta (#113) e deploy numa VPS (#114).</dd>
+            <dt>Slides</dt><dd><a href="https://claude.ai/artifact/6Khf5MqLSv33JXgoYnhar4">Desvio — Evolução do projeto</a>, com esta história entrega a entrega.</dd>
           </dl>
         </div>
         <div class="cartao semana">
           <div class="cabeca"><span class="data">30/11 a 06/12</span><h3>A10 · Fechamento da Fase 1</h3><span class="status planejada">Plano</span></div>
           <dl>
-            <dt>Emilly</dt><dd>Swipe com desfazer (#21) e detalhe do lugar (#28).</dd>
-            <dt>Leonardo</dt><dd>Gabarito de paradas reais para duas rotas conhecidas e comparação das fontes e das IAs contra ele.</dd>
-            <dt>Guilherme</dt><dd>Métricas (#43), aviso push (#39) e a viagem real de ponta a ponta no celular (#24).</dd>
+            <dt>Emilly</dt><dd>Ajustes do teste das telas no celular, nos temas claro e escuro.</dd>
+            <dt>Leonardo</dt><dd>Nova medição da mesma viagem depois das correções; gabarito de paradas reais para duas rotas conhecidas.</dd>
+            <dt>Guilherme</dt><dd>Métricas (#43) e aviso push (#39) na <code>main</code>, e a viagem real de ponta a ponta no celular (#24).</dd>
           </dl>
         </div>
         <div class="cartao semana">
           <div class="cabeca"><span class="data">07/12 a 13/12</span><h3>A11 · Detalhe, perfil e medição da IA</h3><span class="status planejada">Plano</span></div>
           <dl>
-            <dt>Emilly</dt><dd>Perfil (#31) e filtro por categoria (#29).</dd>
-            <dt>Leonardo</dt><dd>Cards do OpenStreetMap na tela enquanto o Google chega (#33); ranqueamento só por distância contra o da IA, medido pelas escolhas do swipe (NDCG).</dd>
+            <dt>Emilly</dt><dd>Ajustes de uso que aparecerem no teste com o grupo.</dd>
+            <dt>Leonardo</dt><dd>Ranqueamento só por distância contra o da IA, medido pelas escolhas do swipe (NDCG), e o gabarito comparado com cada fonte e cada IA.</dd>
             <dt>Guilherme</dt><dd>Observabilidade completa (#42) e preparação do beta.</dd>
           </dl>
         </div>
         <div class="cartao semana">
           <div class="cabeca"><span class="data">14/12 a 20/12</span><h3>A12 · Fim da Fase 2 e beta fechado</h3><span class="status planejada">Plano</span></div>
           <dl>
-            <dt>Emilly</dt><dd>Refazer triagem (#32) e o botão de exportar e apagar dados no perfil (#40).</dd>
-            <dt>Leonardo</dt><dd>Decisão sobre o plano do Groq com o uso real do beta (#41).</dd>
+            <dt>Emilly</dt><dd>Telas do beta revisadas com quem testou.</dd>
+            <dt>Leonardo</dt><dd>Conferir a decisão do Groq (#41, já tomada em 25/11) com o uso real do beta.</dd>
             <dt>Guilherme</dt><dd>Beta fechado com usuários (#44).</dd>
           </dl>
         </div>
